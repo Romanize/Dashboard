@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <!-- Linking CSS, Bootstrap included -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand navbar-light bg-light shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand d-none d-sm-inline" href="#">
+                <img src="https://cdn.icon-icons.com/icons2/1194/PNG/512/1490886336-22-atom_82489.png" alt="" width="30" height="30" class="d-inline-block align-text-top">
+                <span> Dashboard</span>
+            </a>
+            <div class="nav-toogle d-sm-none">
+                <img src="https://cdn.icon-icons.com/icons2/1194/PNG/512/1490886336-22-atom_82489.png" alt="" width="43" height="43" class="d-inline-block align-text-top">
+            </div>
+            <div class="flex-fill d-flex flex-shrink-1">
+                <form class="d-none d-md-flex input-group navbar-search">
+                    <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="justify-content-end d-flex flex-shrink-0">
+                <ul class="navbar-nav">
+                    <li class="nav-item d-md-none ">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-search fa-sm"></i>
+                        </a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-envelope fa-fw"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown nav-dropdown-toggler">
+                        <a class="nav-link dropdowm-toggle" id="alerts-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                            <i class="fas fa-bell fa-fw"></i>
+                        </a>
+                        <!-- Alerts Dropdown -->
+                        <div class="dropdown-list dropdown-menu dropdown-menu-end
+                         shadow nav-dropdown" aria-labelledby="alerts-dropdown">
+                                <h6 class="dropdown-header nav-dropdown-header">
+                                    Alerts Center
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
+                                    <div class="mr-3">
+                                        <div class="nav-dropdown-icon bg-primary text-white">
+                                            <i class="fas fa-file-alt"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small">29 de Diciembre del 2019</div>
+                                        <span class="fw-bold">El reporte mensual está listo para ser descargado!</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
+                                    <div class="mr-3">
+                                        <div class="nav-dropdown-icon bg-success text-white">
+                                            <i class="fas fa-donate"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small">5 de Diciembre del 2019</div>
+                                        El pago de 48,000$ ha sido enviado!
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
+                                    <div class="mr-3">
+                                        <div class="nav-dropdown-icon bg-warning text-white">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small">2 de Diciembre del 2019</div>
+                                        Hemos encontrado actividades sin realizar!
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center small" href="#">Show All Alerts</a>
+                            </div>
+                    </li>
+                    <span class="nav-separator"></span>
+                    <li class="nav-item">
+                        <a class="nav-link nav-user" href="#"><img src="https://eshendetesia.com/images/user-profile.png" alt="User Picture" width="35px" height="35px">
+                        <span class="d-none d-md-inline">Robert Martínez</span></a>
+                    </li>
+                </ul>
+            </div>
+            <link rel="stylesheet" href="">
+        </div>
+    </nav>
+
+    <!-- Linking Js, Bootstrap missing -->
+    <script src="js/main.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="js/vendors/bootstrap.bundle.js"></script>
+</body>
+</html>
