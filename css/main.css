@@ -12099,8 +12099,10 @@ textarea.form-control-lg {
 
 html {
   margin: 0px;
-  padding: 0px;
-  box-sizing: border-box; }
+  padding: 0px; }
+
+* {
+  font-family: 'Nunito', sans-serif; }
 
 .navbar-search {
   max-width: 350px;
