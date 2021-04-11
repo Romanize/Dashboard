@@ -12190,10 +12190,10 @@ html {
 
 .course-card-status {
   display: inline-block;
-  width: max-content;
+  width: auto;
   position: absolute;
   right: 1rem;
-  top: -0.5rem;
+  top: -.7rem;
   color: white;
   text-align: center;
   border-radius: 5px; }
