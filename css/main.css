@@ -12097,6 +12097,25 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important; } }
 
+html {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box; }
+
+.navbar-search {
+  max-width: 350px;
+  margin-right: 100px;
+  flex-shrink: 1; }
+
+.nav-separator {
+  border-right: 1px solid #e3e6f0;
+  margin: auto 1rem;
+  height: 80%;
+  width: 0px; }
+
+.nav-user {
+  padding: 0.25rem 1rem; }
+
 .nav-dropdown-toggler {
   position: static; }
 
@@ -12137,27 +12156,160 @@ textarea.form-control-lg {
   justify-content: center;
   margin-right: 1rem; }
 
+.nav-dropdown-user {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  position: relative; }
+
+.nav-dropdown-status {
+  background-color: #eaecf4;
+  height: .75rem;
+  width: .75rem;
+  border-radius: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border: .125rem solid #fff; }
+
+.nav-dropdown-message {
+  width: 80%; }
+
 @media (min-width: 576px) {
   .nav-dropdown {
     width: 20rem !important; }
   .nav-dropdown-toggler {
     position: relative; } }
 
-.navbar-search {
-  max-width: 350px;
-  margin-right: 100px;
-  flex-shrink: 1; }
+.course-card {
+  position: relative; }
 
-.nav-separator {
-  border-right: 1px solid #e3e6f0;
-  margin: auto 1rem;
-  height: 80%;
-  width: 0px; }
+.course-card-status {
+  display: inline-block;
+  width: max-content;
+  position: absolute;
+  right: 1rem;
+  top: -0.5rem;
+  color: white;
+  text-align: center;
+  border-radius: 5px; }
 
-.nav-user {
-  padding: 0.25rem 1rem; }
+.card-button {
+  width: max-content; }
 
-html {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box; }
+.card-button::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f0a9";
+  margin-right: 0.5rem;
+  transition: .2s; }
+
+.border-left-primary {
+  border-left: 0.25rem solid #0d6efd !important; }
+
+.border-left-secondary {
+  border-left: 0.25rem solid #6c757d !important; }
+
+.border-left-success {
+  border-left: 0.25rem solid #198754 !important; }
+
+.border-left-info {
+  border-left: 0.25rem solid #0dcaf0 !important; }
+
+.border-left-warning {
+  border-left: 0.25rem solid #ffc107 !important; }
+
+.border-left-danger {
+  border-left: 0.25rem solid #dc3545 !important; }
+
+.border-left-light {
+  border-left: 0.25rem solid #f8f9fa !important; }
+
+.border-left-dark {
+  border-left: 0.25rem solid #212529 !important; }
+
+.border-right-primary {
+  border-right: 0.25rem solid #0d6efd !important; }
+
+.border-right-secondary {
+  border-right: 0.25rem solid #6c757d !important; }
+
+.border-right-success {
+  border-right: 0.25rem solid #198754 !important; }
+
+.border-right-info {
+  border-right: 0.25rem solid #0dcaf0 !important; }
+
+.border-right-warning {
+  border-right: 0.25rem solid #ffc107 !important; }
+
+.border-right-danger {
+  border-right: 0.25rem solid #dc3545 !important; }
+
+.border-right-light {
+  border-right: 0.25rem solid #f8f9fa !important; }
+
+.border-right-dark {
+  border-right: 0.25rem solid #212529 !important; }
+
+.border-top-primary {
+  border-top: 0.25rem solid #0d6efd !important; }
+
+.border-top-secondary {
+  border-top: 0.25rem solid #6c757d !important; }
+
+.border-top-success {
+  border-top: 0.25rem solid #198754 !important; }
+
+.border-top-info {
+  border-top: 0.25rem solid #0dcaf0 !important; }
+
+.border-top-warning {
+  border-top: 0.25rem solid #ffc107 !important; }
+
+.border-top-danger {
+  border-top: 0.25rem solid #dc3545 !important; }
+
+.border-top-light {
+  border-top: 0.25rem solid #f8f9fa !important; }
+
+.border-top-dark {
+  border-top: 0.25rem solid #212529 !important; }
+
+.border-bottom-primary {
+  border-bottom: 0.25rem solid #0d6efd !important; }
+
+.border-bottom-secondary {
+  border-bottom: 0.25rem solid #6c757d !important; }
+
+.border-bottom-success {
+  border-bottom: 0.25rem solid #198754 !important; }
+
+.border-bottom-info {
+  border-bottom: 0.25rem solid #0dcaf0 !important; }
+
+.border-bottom-warning {
+  border-bottom: 0.25rem solid #ffc107 !important; }
+
+.border-bottom-danger {
+  border-bottom: 0.25rem solid #dc3545 !important; }
+
+.border-bottom-light {
+  border-bottom: 0.25rem solid #f8f9fa !important; }
+
+.border-bottom-dark {
+  border-bottom: 0.25rem solid #212529 !important; }
+
+.animation--grow-in {
+  animation-name: growIn;
+  animation-duration: 0.2s; }
+
+@keyframes growIn {
+  0% {
+    transform: scale(0.75); }
+  100% {
+    transform: scale(1); } }
