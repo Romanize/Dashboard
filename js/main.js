@@ -216,12 +216,12 @@ for(i=0;i<lengthRequest;i++){
 
     contentLoader = contentLoader + `<div class="col">
     <div class="card course-card border-left-warning h-100">
-        <div class="small course-card-status bg-${possibleStatus[courses[i].status]} px-3 py-1" >${courses[i].status}</div>
+        <div class="small course-card-status bg-${possibleStatus[courses[i].status]} px-3 py-1">${courses[i].status}</div>
         <div class="card-header">
         ${courses[i].level +" "+ courses[i].code}
         </div>
         <div class="card-body d-flex flex-column">
-            <h5 class="card-title">${courses[i].level +" "+ courses[i].branch}</h5>
+            <h5 class="card-title fw-bold">${courses[i].level +" "+ courses[i].branch}</h5>
             <p class="card-text">${courses[i].description}</p>
             <p class="small text-end blockquote-footer flex-grow-1">${courses[i].schedule.weekDay + " " + courses[i].schedule.timeStart
         + " a " + courses[i].schedule.timeEnd}</p>
