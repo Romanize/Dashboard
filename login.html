@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Linking CSS, Bootstrap included -->
+    <link rel="stylesheet" href="css/main.css">
+
+
+</head>
+
+<body class="bg-light">
+
+    <!-- LOGIN -->
+    <div id="app">
+        <section class="section">
+            <div class="container mt-5">
+            <div class="row">
+                <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                <div class="login-brand">
+                    <img src="https://www.stickers-factory.com/media/catalog/product/cache/1/image/1000x/040ec09b1e35df139433887a97daa66f/1/2/12019_00.png" alt="logo" width="100" class="shadow rounded-circle">
+                </div>
+    
+                <div class="card border-top-warning">
+                    <div class="card-header login-header"><h4>Login</h4></div>
+    
+                    <div class="card-body">
+                    <form method="POST" action="#" class="needs-validation" novalidate="">
+                        <div class="form-group mb-5">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" class="form-control login-control" name="email" tabindex="1" required autofocus>
+                        <div class="invalid-feedback">
+                            Por favor, ingresa tu email
+                        </div>
+                        </div>
+    
+                        <div class="form-group mb-3">
+                        <div class="d-block">
+                            <label for="password" class="control-label">Contraseña</label>
+                            <div class="float-end">
+                            <a href="#" class="text-small">
+                                ¿Olvidaste la contraseña?
+                            </a>
+                            </div>
+                        </div>
+                        <input id="password" type="password" class="form-control login-control" name="password" tabindex="2" required>
+                        <div class="invalid-feedback">
+                            Por favor, ingresa tu contraseña
+                        </div>
+                        </div>
+    
+                        <div class="form-group mb-5">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="remember" class="custom-control-input login-control" tabindex="3" id="remember-me">
+                                <label class="custom-control-label" for="remember-me">Recuérdame</label>
+                            </div>
+                        </div>
+    
+                        <div class="form-group d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                Login
+                            </button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-4 mb-3">
+                        <div class="text-muted">LOGIN REDES SOCIALES</div>
+                    </div>
+                    <div class="row sm-gutters">
+                        <div class="d-grid col-4">
+                            <a class="btn btn-primary ">
+                                <span class="fab fa-facebook"></span> Facebook
+                            </a>
+                        </div>
+                        <div class="d-grid col-4 align-items-center">
+                            <a class="btn btn-danger" >
+                                <span class="fab fa-google"></span><br> Google
+                            </a>                                
+                        </div>
+                        <div class="d-grid col-4">
+                            <a class="btn btn-primary align-items-center">
+                                <span class="fab fa-twitter"></span><br> Twitter
+                            </a>                                
+                        </div>
+                    </div>
+    
+                    </div>
+                </div>
+                <div class="mt-5 text-muted text-center">
+                    ¿No tienes una cuenta? <a href="#">Crear cuenta</a>
+                </div>
+                <div class="auth-footer">
+                    Copyright &copy; Robert Martinez 2021
+                </div>
+                </div>
+            </div>
+            </div>
+        </section>
+        </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyDh_7eU77tgXnz1jx8ztpvL883O7rryfo0",
+            authDomain: "lms-project-9250e.firebaseapp.com",
+            projectId: "lms-project-9250e",
+            storageBucket: "lms-project-9250e.appspot.com",
+            messagingSenderId: "1072551362832",
+            appId: "1:1072551362832:web:2912206c659383483de595",
+            measurementId: "G-274HZ2995S"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Auth and Database References
+        const analytics = firebase.analytics();
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="js/vendors/bootstrap.bundle.js"></script>
+
+</body>
+
+</html>
