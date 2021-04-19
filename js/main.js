@@ -91,7 +91,7 @@ let possibleStatus = {
     PROXIMAMENTE : "warning"
 }
 
-let lengthRequest = Number(prompt("Cuantos cursos quieres ver?"));
+let lengthRequest = Number(prompt("Cuantos cursos quieres ver? Max. 5"));
 alert('Espera que se carguen los valores de la DB para interactuar con el botón, se muestran por consola');
 
 /**
@@ -153,6 +153,7 @@ console.log(newSubject);
 
 //Usando metodos para el desafio
 function createNewCourse(){
+    alert('Se agrega info al html usando funciones y metodos del objeto creado');
 
     contentLoader = contentLoader + `
     <div class="col">
