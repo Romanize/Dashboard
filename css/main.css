@@ -12131,7 +12131,8 @@ body {
   overflow: hidden;
   padding: 0;
   position: sticky;
-  top: 0; }
+  top: 0;
+  overflow-y: auto; }
 
 .sidebar-brand {
   height: 58.9px;
