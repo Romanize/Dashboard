@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 
+    <!-- Linking Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
-    <!-- Linking CSS, Bootstrap included -->
+    <!-- Linking CSS, Bootstrap, Font Awesome, FullCalendar included -->
     <link rel="stylesheet" href="css/main.css">
-
 
 </head>
 
@@ -29,43 +29,21 @@
                 <!-- Brand -->
                 <div class="sidebar-brand">
                     <a href="#">
-                        Didactic zone
+                        DIDACTIC ZONE
                     </a>
                 </div>
 
-                <ul class="sidebar-menu">
+                <ul class="sidebar-menu accordion accordion-flush">
                     <li class="sidebar-header">DASHBOARD</li>
-                    <li class="sidebar-item">
+                    <li class="accordion-item sidebar-item">
                         <a href="">
                             <i class="fas fa-columns"></i>
                             <span>DASHBOARD</span>
                         </a>
                     </li>
                     <li class="sidebar-header">cursos</li>
-                    <li class="sidebar-item sidebar-dropdown">
-                        <a href="">
-                            <i class="fas fa-book"></i>
-                            <span>MASTER C2</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="">
-                            <i class="fas fa-book"></i>
-                            <span>MASTER D5</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="">
-                            <i class="fas fa-book"></i>
-                            <span>PRACTITIONER B1</span>
-                        </a>
-                    </li>
-                    <li>
-                        <button class="btn btn-warning btn-lg w-100 mb-4" onclick="showCourses(lengthRequest)">Carga Inicial desde DB</button>
-                    </li>
-                    <li>
-                        <button class="btn btn-success btn-lg w-100" onclick="createNewCourse()">Objeto Definido y usando Methods</button>
-                    </li>
+                    <div id="subject-aside">
+                    </div>
                 </ul>
             </aside>
             
@@ -245,9 +223,16 @@
                 <!-- main content -->
                 <div class="row">
                 <!-- content cards -->
-                    <main class="row row-cols-1 row-cols-md-2 row-cols-lg-3 gx-3 gy-4 px-2 py-3 d-flex align-items-stretch justify-content-center m-0"
-                        id="course-content">
+                    <main class="row row-cols-1 row-cols-md-2 mb-3 row-cols-lg-3 gx-3 gy-4 px-2 py-3 d-flex align-items-stretch justify-content-center m-0"
+                        id="subject-cards">
                     </main>
+                </div>
+                <div class="row row-cols-1 row-cols-lg-2 gx-5">
+                    <section class="col" id="calendar">
+                    </section>
+                    <section class="bg-dark col">
+                        xx
+                    </section>
                 </div>
             </div>
         </div>
@@ -288,6 +273,9 @@
 
     <!-- Linking Js, Bootstrap missing -->
     <script src="js/main.js"></script>
+
+    <!-- Full Calendar Script -->
+    <script src='js/vendors/fullCalendar.js'></script>
 </body>
 
 </html>

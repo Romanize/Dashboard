@@ -1,18 +1,18 @@
 /**
  * COURSES CONSTRUCTOR FUNCTION ES6
  */
- class Courses {
-    constructor (level, code, branch, status, weekDayx, timeStartx, timeEndx, dayStartx, dayEndx) {
+ class Subjects {
+    constructor (level, code, branch, status, weekDay, timeStart, timeEnd, dayStart, dayEnd) {
         this.code = code.toUpperCase();
         this.level = level.toUpperCase();
         this.branch = branch.toUpperCase();
         this.status = status.toUpperCase();
         this.schedule = {
-            weekDay : weekDayx.toUpperCase(),
-            timeStart : timeStartx,
-            timeEnd : timeEndx,
-            dayStart : dayStartx,
-            dayEnd : dayEndx,
+            weekDay : weekDay.toUpperCase(),
+            timeStart : timeStart,
+            timeEnd : timeEnd,
+            dayStart : dayStart,
+            dayEnd : dayEnd,
         }
     }
     /**
@@ -58,122 +58,125 @@
             return "Falta agregar rama Coaching"
         }
     }
-    add(pass) {
-        if (pass == '1234'){
-            db.collection('courses').add({
-                code : this.code,
-                level : this.level,
-                brach: this.branch,
-                schedule: this.schedule,
-                status: this.status              
-            })
-        }else{
-            alert('Error, ingrese contraseña como parametro')
+}
+
+// Firestore data converter
+var subjectConverter = {
+    toFirestore: function(subject) {
+        return {
+            code: subject.code,
+            level: subject.level,
+            branch: subject.branch,
+            status: subject.status,
+            schedule: {
+                weekDay: subject.schedule.weekDay,
+                timeStart: subject.schedule.timeStart,
+                timeEnd: subject.schedule.timeEnd,
+                dayStart: subject.schedule.dayStart,
+                dayEnd: subject.schedule.dayEnd
+            }
         }
+    },
+    fromFirestore: function(snapshot, options){
+        const data = snapshot.data(options);
+        return new Subjects(data.level, data.code, data.branch, data.status, data.schedule.weekDay, data.schedule.timeStart, data.schedule.timeEnd, data.schedule.dayStart, data.schedule.dayEnd);
     }
 }
 
-var courses = [];
+let subjectsList = [];
 
-db.collection('courses').get().then((snapshot)=>{
-    snapshot.docs.forEach(doc => {
-        courses.push(doc.data())
-    })
-    console.log(courses);
-    alert('Ahora puedes interactuar con los botones')
-})
-
-let contentLoader = '';
+db.collection("courses") //TODO Cambiar coleccion y condicion
+  .withConverter(subjectConverter)
+  .get()
+  .then((snapshot) => {
+    snapshot.docs.forEach((doc) => {
+      if (doc.exists) {
+        // Agregar al Array
+        subjectsList.push(doc.data());
+      } else {
+        console.log("No existe el documento");
+      }
+    });
+    console.log(subjectsList);
+    subjectsList.sort((a,b)=>{ //ordenar por status
+        if(a.status < b.status){
+            return -1
+        } else if(a.status > b.status){
+            return 1
+        }else{
+            return 0
+        }
+    });
+    renderSubjects();
+  })
+  .catch((error) => {
+    console.log("Error al conseguir el documento:", error);
+  })
 
 let possibleStatus = {
     CURSANDO : "success",
-    CULMINADO : "danger",
+    TERMINADO : "dark",
     PROXIMAMENTE : "warning"
 }
-
-let lengthRequest = Number(prompt("Cuantos cursos quieres ver? Max. 5"));
-alert('Espera que se carguen los valores de la DB para interactuar con el botón, se muestran por consola');
-
-/**
- * Da un alert con la cantidad de cursos a mostrar, y llama a la función para crear las cards.
- * @param {Cantidad de cursos a mostrar} requestedCourses 
- */
- function showCourses (requestedCourses) {
-    alert(`Se mostrarán un total de ${requestedCourses} cursos`);
-    createCoursesCards(requestedCourses);
-}
-
 
 /**
  * Esta función muestra las cards del curso solicitadas
  * @param {Valor requerido a mostrar} requestedCourses 
  */
-function createCoursesCards (requestedCourses){
+function renderSubjects (){ //TODO MODIFICAR LOS HREF
 
-    for(i=0;i<requestedCourses;i++){
+    let cardsRender = '';
+    let asideRender = '';
 
-        contentLoader = contentLoader + `<div class="col">
-        <div class="card course-card border-left-warning h-100">
-            <div class="small course-card-status bg-${possibleStatus[courses[i].status]} px-3 py-1">${courses[i].status}</div>
-            <div class="card-header">
-            ${courses[i].level +" "+ courses[i].code}
+    for(i=0;i<subjectsList.length;i++){
+
+        cardsRender = cardsRender + 
+        `<div class="col">
+            <a href="#" class="card subject-card border-left-warning h-100">
+                <div class="card-body d-flex flex-column">
+                    <div class="small subject-card-status bg-${possibleStatus[subjectsList[i].status]} px-3 py-1">${subjectsList[i].status}</div>
+                    <h5 class="card-title fw-bold">${subjectsList[i].level +" "+subjectsList[i].code+" - "+ subjectsList[i].branch}</h5>
+                    <p class="small text-end blockquote-footer flex-grow-1">${subjectsList[i].schedule.weekDay + " " + subjectsList[i].schedule.timeStart
+                + " a " + subjectsList[i].schedule.timeEnd}</p>
+                </div>
+            </a>
+        </div>`;
+
+        asideRender = asideRender +
+        `<li class="accordion-item sidebar-item">
+            <div class="accordion-header" id="flush-heading${subjectsList[i].code}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${subjectsList[i].code}" aria-expanded="false" aria-controls="flush-collapse${subjectsList[i].code}">
+                ${subjectsList[i].level +" "+subjectsList[i].code}
+                </button>
             </div>
-            <div class="card-body d-flex flex-column">
-                <h5 class="card-title fw-bold">${courses[i].level +" "+ courses[i].branch}</h5>
-                <p class="card-text">${courses[i].description}</p>
-                <p class="small text-end blockquote-footer flex-grow-1">${courses[i].schedule.weekDay + " " + courses[i].schedule.timeStart
-            + " a " + courses[i].schedule.timeEnd}</p>
-                <a href="#" class="card-button btn btn-primary px-3">Ver curso</a>
+            <div id="flush-collapse${subjectsList[i].code}" class="accordion-collapse collapse" aria-labelledby="flush-heading${subjectsList[i].code}" data-bs-parent="#subject-aside" >
+                <a href="">
+                    <i class="fas fa-user-friends"></i>
+                    <span>ALUMNOS</span>
+                </a>
+                <a href="">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>TEMARIO</span>
+                </a>
+                <a href="">
+                    <i class="fas fa-book-open"></i>
+                    <span>MATERIALES</span>
+                </a>
             </div>
-            <div class="card-footer text-muted text-uppercase">
-            ${dateMonthSplitter(courses[i].schedule.dayStart) + " - " + dateMonthSplitter(courses[i].schedule.dayEnd)}
-            </div>
-        </div>
-    </div>`
+        </li>`
     };
 
-    document.querySelector("#course-content").innerHTML = contentLoader;
+    document.querySelector("#subject-cards").innerHTML = cardsRender; //Div para las cards
+    document.querySelector("#subject-aside").innerHTML = asideRender; //Div para el aside
 }
 
-/**
- * Función para borrar, luego de agregar metodos a los objetos que vienen de la db
- */
-function dateMonthSplitter(d){
-    let dateParts = d.split("/");
-    let returnDate = new Date(+dateParts[2],dateParts[1]-1,+dateParts[0]);
-    const options = {month:'long',year:'numeric'};
+//FullCalendar Initializer
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth'
+    });
+    calendar.render();
+  });
 
-    let returnMonth = returnDate.toLocaleDateString('es-AR', options);
-        
-    return returnMonth;
-}
-
-let newSubject = new Courses('MASTER','A8','PNL','PROXIMAMENTE','LUNES','09:30','12:30','25/04/2021','13/04/2022');
-console.log(newSubject);
-
-//Usando metodos para el desafio
-function createNewCourse(){
-    alert('Se agrega info al html usando funciones y metodos del objeto creado');
-
-    contentLoader = contentLoader + `
-    <div class="col">
-        <div class="card course-card border-left-warning h-100">
-            <div class="small course-card-status bg-${possibleStatus[newSubject.status]} px-3 py-1">${newSubject.status}</div>
-            <div class="card-header">
-            ${newSubject.level +" "+ newSubject.code}
-            </div>
-            <div class="card-body d-flex flex-column">
-                <h5 class="card-title fw-bold">${newSubject.level +" "+ newSubject.branch}</h5>
-                <p class="card-text">${newSubject.description()}</p>
-                <p class="small text-end blockquote-footer flex-grow-1">${newSubject.schedule.weekDay + " " + newSubject.schedule.timeStart
-            + " a " + newSubject.schedule.timeEnd}</p>
-                <a href="#" class="card-button btn btn-primary px-3">Ver curso</a>
-            </div>
-            <div class="card-footer text-muted text-uppercase">
-            ${newSubject.dayStartSplitter() + " - " + newSubject.dayEndSplitter()}
-            </div>
-        </div>
-    </div>`
-
-    document.querySelector("#course-content").innerHTML = contentLoader;
-}
+//TODO DROPDOWN PROFILE, HORARIO, LISTA DE TAREAS.
