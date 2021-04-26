@@ -176,9 +176,12 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridMonth',
       headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
+        left: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+      },
+      footerToolbar: {        
+          left: 'prev,next',
+          right: 'today'
       },
       navLinks: true,
       selectable:true,
@@ -186,6 +189,4 @@ document.addEventListener('DOMContentLoaded', function() {
     calendar.render();
   });
 
-
-
-//TODO DROPDOWN PROFILE, HORARIO, LISTA DE TAREAS.
+//TODO DROPDOWN PROFILE, LISTA DE TAREAS APP.

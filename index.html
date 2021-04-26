@@ -29,7 +29,7 @@
         <div class="row">
 
             <!-- Sidebar -->
-            <aside class="bg-light col sidebar vh-100">
+            <aside class="bg-light col sidebar vh-100 d-none d-xl-inline">
                             
                 <!-- Brand -->
                 <div class="sidebar-brand">
@@ -49,11 +49,30 @@
                     <li class="sidebar-header">cursos</li>
                     <div id="subject-aside">
                     </div>
+                    <li class="sidebar-header">APPS</li>
+                    <li class="accordion-item sidebar-item">
+                        <a href="">
+                            <i class="fas fa-envelope"></i>
+                            <span>MESSAGES</span>
+                        </a>
+                    </li>
+                    <li class="accordion-item sidebar-item">
+                        <a href="">
+                            <i class="fas fa-clock"></i>
+                            <span>SCHEDULE</span>
+                        </a>
+                    </li>
+                    <li class="accordion-item sidebar-item">
+                        <a href="">
+                            <i class="fas fa-list"></i>
+                            <span>TO DO LIST</span>
+                        </a>
+                    </li>
                     <li class="sidebar-header">SETTINGS</li>
                     <li class="accordion-item sidebar-item">
                         <a href="">
                             <i class="fas fa-cogs"></i>
-                            <span>CONFIGURACIÓN</span>
+                            <span>SETTINGS</span>
                         </a>
                     </li>
                     <li class="accordion-item sidebar-item">
@@ -239,7 +258,7 @@
                 <!-- Navbar END -->
                 
                 <!-- main content -->
-                <div class="row mb-3">
+                <div class="row">
                 <!-- content cards -->
                     <main class="row row-cols-1 row-cols-md-2 mb-3 row-cols-lg-3 gx-3 gy-4 px-2 d-flex align-items-stretch justify-content-center m-0"
                         id="subject-cards">
@@ -247,13 +266,10 @@
                 </div>
                 <!-- bottom section -->
                 <div class="row">
-                    <div class="row row-cols-1 row-cols-lg-2 px-2 m-0 gx-5 d-flex align-items-stretch justify-content-center">
+                    <div class="row px-2 m-0 gx-5 d-flex align-items-stretch justify-content-center">
                         <!-- calendar -->
-                        <section class="col" >
-                            <div id="calendar"></div>
-                        </section>
                         <!-- recent table -->
-                        <section class="col">
+                        <section class="col-12 mt-4 col-lg-6">
                             <div><h2>Recent Activities</h2></div>
                             <div class="table-responsive" id="recentTable">
                                 <table class="table table-hover">
@@ -287,6 +303,9 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </section>
+                        <section class="col-12 mt-4 col-lg-6" >
+                            <div id="calendar"></div>
                         </section>
                     </div>
                 </div>
