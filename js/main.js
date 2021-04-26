@@ -119,6 +119,7 @@ let possibleStatus = {
     PROXIMAMENTE : "warning"
 }
 
+let pedirPrompt = prompt("Para cumplir con la consigna del prompt, ingresa las cards que quieres mostar. (1-5)")
 /**
  * Esta función muestra las cards del curso solicitadas
  * @param {Valor requerido a mostrar} requestedCourses 
@@ -128,7 +129,7 @@ function renderSubjects (){ //TODO MODIFICAR LOS HREF
     let cardsRender = '';
     let asideRender = '';
 
-    for(i=0;i<subjectsList.length;i++){
+    for(i=0;i<pedirPrompt;i++){ // cambiar por length
 
         cardsRender = cardsRender + 
         `<div class="col">
