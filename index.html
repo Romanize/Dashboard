@@ -16,8 +16,10 @@
     <!-- Linking CSS, Bootstrap, Font Awesome -->
     <link rel="stylesheet" href="css/main.css">
 
-    <!-- Full Calendar css -->
-    <link rel="stylesheet" href="fullcalendar/main.css">
+    <!-- Full Calendar-->
+    <link rel="stylesheet" href="css/fullcalendar/main.css">
+
+    <script src='js/vendors/fullCalendar.js'></script>
 
 </head>
 
@@ -27,7 +29,7 @@
         <div class="row">
 
             <!-- Sidebar -->
-            <aside class="bg-light col sidebar vh-100 fixed-left">
+            <aside class="bg-light col sidebar vh-100">
                             
                 <!-- Brand -->
                 <div class="sidebar-brand">
@@ -47,13 +49,26 @@
                     <li class="sidebar-header">cursos</li>
                     <div id="subject-aside">
                     </div>
+                    <li class="sidebar-header">SETTINGS</li>
+                    <li class="accordion-item sidebar-item">
+                        <a href="">
+                            <i class="fas fa-cogs"></i>
+                            <span>CONFIGURACIÓN</span>
+                        </a>
+                    </li>
+                    <li class="accordion-item sidebar-item">
+                        <a href="">
+                            <i class="fas fa-moon"></i>
+                            <span>DARK MODE</span>
+                        </a>
+                    </li>
                 </ul>
             </aside>
             
             <!-- Content -->
             <div class="container-fluid col">
                 <!-- Navbar -->
-                <div class="row">
+                <div class="row sticky-top">
                     <nav class="navbar navbar-expand navbar-light bg-light shadow mb-3 p-0 w-100">
                         <div class="container-fluid m-2">
 
@@ -224,18 +239,56 @@
                 <!-- Navbar END -->
                 
                 <!-- main content -->
-                <div class="row">
+                <div class="row mb-3">
                 <!-- content cards -->
-                    <main class="row row-cols-1 row-cols-md-2 mb-3 row-cols-lg-3 gx-3 gy-4 px-2 py-3 d-flex align-items-stretch justify-content-center m-0"
+                    <main class="row row-cols-1 row-cols-md-2 mb-3 row-cols-lg-3 gx-3 gy-4 px-2 d-flex align-items-stretch justify-content-center m-0"
                         id="subject-cards">
                     </main>
                 </div>
-                <div class="row row-cols-1 row-cols-lg-2 gx-5">
-                    <section class="col" id="calendar">
-                    </section>
-                    <section class="bg-dark col">
-                        xx
-                    </section>
+                <!-- bottom section -->
+                <div class="row">
+                    <div class="row row-cols-1 row-cols-lg-2 px-2 m-0 gx-5 d-flex align-items-stretch justify-content-center">
+                        <!-- calendar -->
+                        <section class="col" >
+                            <div id="calendar"></div>
+                        </section>
+                        <!-- recent table -->
+                        <section class="col">
+                            <div><h2>Recent Activities</h2></div>
+                            <div class="table-responsive" id="recentTable">
+                                <table class="table table-hover">
+                                    <thead class="bg-primary text-white">
+                                    <tr>
+                                        <th scope="col">Alumno</th>
+                                        <th scope="col">Curso</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Actividad</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="align-middle">
+                                        <th scope="row"><img class="rounded-circle me-2" img="" src="https://eshendetesia.com/images/user-profile.png" alt="User Picture" width="35px" height="35px">Mark Otto</th>
+                                        <td>PRACTITIONER B1</td>
+                                        <td>20/04/2020</td>
+                                        <td>Bitácora</td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <th scope="row"><img class="rounded-circle me-2" img="" src="https://eshendetesia.com/images/user-profile.png" alt="User Picture" width="35px" height="35px">Jacob Thornton</th>
+                                        <td>MASTER D5</td>
+                                        <td>14/04/2020</td>
+                                        <td>Certificación</td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <th scope="row"><img class="rounded-circle me-2" img="" src="https://eshendetesia.com/images/user-profile.png" alt="User Picture" width="35px" height="35px">Larry Therion</th>
+                                        <td>MASTER C3</td>
+                                        <td>21/03/2020</td>
+                                        <td>Práctica</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
                 </div>
             </div>
         </div>
@@ -278,7 +331,7 @@
     <script src="js/main.js"></script>
 
     <!-- Full Calendar Script -->
-    <script src='js/vendors/fullCalendar.js'></script>
+    
 </body>
 
 </html>

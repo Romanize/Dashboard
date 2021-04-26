@@ -174,9 +174,18 @@ function renderSubjects (){ //TODO MODIFICAR LOS HREF
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth'
+      initialView: 'dayGridMonth',
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+      },
+      navLinks: true,
+      selectable:true,
     });
     calendar.render();
   });
+
+
 
 //TODO DROPDOWN PROFILE, HORARIO, LISTA DE TAREAS.
