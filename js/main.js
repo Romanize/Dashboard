@@ -4,6 +4,7 @@ const isIndexHTML = window.location.href.includes('index.html')
 //Listen for auth changes
 auth.onAuthStateChanged(user =>{
     if(user){
+        setUserUI(user);
         setSubjectsToRender()
     } else{
         localStorage.removeItem("subjectsListStorage")
@@ -11,6 +12,20 @@ auth.onAuthStateChanged(user =>{
         window.location.href = 'auth-login.html'
     }
 })
+
+
+/**
+ * Get some info from user to show in DOM
+ * @param {object containing info of logged user} user 
+ */
+const setUserUI = (user) =>{
+
+    const userImage = document.getElementById('user-image')
+    const userName = document.getElementById('user-name');
+    userName.innerHTML = user.displayName
+    userImage.setAttribute('src',user.photoURL);
+}
+
 
 /**
  * COURSES CONSTRUCTOR FUNCTION ES6
@@ -89,7 +104,7 @@ auth.onAuthStateChanged(user =>{
 }
 
 // Firestore data converter
-var subjectConverter = {
+const subjectConverter = {
     toFirestore: function(subject) {
         return {
             code: subject.code,
@@ -163,8 +178,8 @@ const renderSubjectsCards = () => {
 
     subjectsList.forEach(subject =>{
 
-        cardsRender = cardsRender + 
-        `<div class="col">
+        cardsRender = cardsRender + `
+        <div class="col">
             <a href="subject.html" class="card subject-card border-left-warning h-100" data-id="${subject.code}">
                 <div class="card-body d-flex flex-column">
                     <div class="small subject-card-status bg-${subject.statusColor} px-2 py-1">${subject.status}</div>
@@ -173,7 +188,8 @@ const renderSubjectsCards = () => {
                 + " a " + subject.schedule.timeEnd}</p>
                 </div>
             </a>
-        </div>`;
+        </div>
+        `;
     })
 
     document.getElementById("subject-cards").innerHTML = cardsRender; //Div para las cards
@@ -200,8 +216,8 @@ const renderAsideCards = () => {
     let asideRender = '';
 
     subjectsList.forEach(subject =>{
-        asideRender = asideRender +
-        `<li class="accordion-item sidebar-item">
+        asideRender = asideRender + `
+        <li class="accordion-item sidebar-item">
             <div class="accordion-header" id="flush-heading${subject.code}">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${subject.code}" aria-expanded="false" aria-controls="flush-collapse${subject.code}">
                 ${subject.level +" "+subject.code}
@@ -221,7 +237,8 @@ const renderAsideCards = () => {
                     <span>MATERIALES</span>
                 </a>
             </div>
-        </li>`
+        </li>
+        `
     })
 
     document.getElementById("subject-aside").innerHTML = asideRender;
@@ -252,36 +269,36 @@ document.addEventListener('DOMContentLoaded', function() {
     if(isIndexHTML){
         
         const formattedTime = 
-        (currentDate.getHours() > 9 ? currentDate.getHours() : '0'+currentDate.getHours())+":"
-        +(currentDate.getMinutes() > 9 ? currentDate.getMinutes() : '0'+currentDate.getMinutes())+":"
-        +(currentDate.getSeconds() > 9 ? currentDate.getSeconds() : '0'+currentDate.getSeconds());
+            (currentDate.getHours() > 9 ? currentDate.getHours() : '0'+currentDate.getHours())+":"
+            +(currentDate.getMinutes() > 9 ? currentDate.getMinutes() : '0'+currentDate.getMinutes())+":"
+            +(currentDate.getSeconds() > 9 ? currentDate.getSeconds() : '0'+currentDate.getSeconds());
 
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'timeGridWeek',
-        themeSystem: 'bootstrap',
-        locale: language,
-        allDaySlot: false,
-        headerToolbar: {
-            left: 'prev',
-            center: 'title',
-            right: 'next',
-        },
-        scrollTime: formattedTime,
-        selectable:true,
-        nowIndicator:true,
-        events: [
-            {
-                title:  'My Event',
-                startTime:  '14:30:00',
-                endTime: '18:30:00',
-                allDay: false,
-                url: 'http://zoom.us',
-                daysOfWeek: [ '3' ],
-                startRecur: '2021-05-01',
-                endRecur: '2021-05-21',
-            }
-        ]
+        let calendarEl = document.getElementById('calendar');
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            themeSystem: 'bootstrap',
+            locale: language,
+            allDaySlot: false,
+            headerToolbar: {
+                left: 'prev',
+                center: 'title',
+                right: 'next',
+            },
+            scrollTime: formattedTime,
+            selectable:true,
+            nowIndicator:true,
+            events: [
+                {
+                    title:  'My Event',
+                    startTime:  '14:30:00',
+                    endTime: '18:30:00',
+                    allDay: false,
+                    url: 'http://zoom.us',
+                    daysOfWeek: [ '3' ],
+                    startRecur: '2021-05-01',
+                    endRecur: '2021-05-21',
+                }
+            ]
         });
         calendar.render();
     }

@@ -1,7 +1,10 @@
+const isRegisterHTML = window.location.href.includes('register.html');
+const isLoginHTML = window.location.href.includes('login.html');
+
 //Listen for auth changes
 auth.onAuthStateChanged(user =>{
     if(user){
-        window.location.href = 'index.html'
+        if(isLoginHTML){window.location.href = 'index.html'}
     } else{
         localStorage.removeItem("subjectToOpen")
     }
@@ -10,8 +13,6 @@ auth.onAuthStateChanged(user =>{
 
 
 // Sign Up
-const isRegisterHTML = window.location.href.includes('register.html');
-const isLoginHTML = window.location.href.includes('login.html');
 
 if(isRegisterHTML){
     const registerForm = document.getElementById('registerForm') 
@@ -20,8 +21,8 @@ if(isRegisterHTML){
         event.preventDefault();
 
         //Get User Info
-        //  const firstName = registerForm['first_name'].value;
-        //  const lastName = registerForm['last_name'].value;
+        const firstName = registerForm['first_name'].value;
+        const lastName = registerForm['last_name'].value;
         const email = registerForm['email'].value;
         const password = registerForm['password'].value;
         const password2 = registerForm['password2'].value;
@@ -29,14 +30,21 @@ if(isRegisterHTML){
         if(password === password2){
             auth.createUserWithEmailAndPassword(email,password)
                 .then((credentialUser) =>{
-                    console.log(credentialUser)
-                    window.location.href = 'index.html'
-                })
-                .catch(error=>{
-                    console.log(error.code, error.message);
-                })
+                    return db.collection('users').doc(credentialUser.user.uid).set({
+                        phoneNumber: registerForm['phone'].value,
+                        role: 'student',
+                        address: {
+                            country: 'Argentina',
+                            city: 'Buenos Aires'
+                        }
+                    })
+                }).then(()=>{
+                    auth.currentUser.updateProfile({
+                        displayName: `${firstName} ${lastName}`,
+                        photoURL: 'https://eshendetesia.com/images/user-profile.png'
+                    }).then(()=>{window.location.href = 'index.html'})
+                }).catch(error=>console.log(error.message))
         }else{
-            registerForm.reset();
             document.getElementById('password').value = '';
             document.getElementById('password2').value = '';
         }
