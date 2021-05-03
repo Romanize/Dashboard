@@ -12288,6 +12288,9 @@ body {
   text-decoration: none;
   color: black; }
 
+.subject-card:hover {
+  background-color: #e9ecef; }
+
 .subject-card-status {
   display: inline-block;
   width: auto;

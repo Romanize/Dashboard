@@ -1,8 +1,17 @@
+//Listen for auth changes
+auth.onAuthStateChanged(user =>{
+    if(user){
+        window.location.href = 'index.html'
+    } else{
+        localStorage.removeItem("subjectToOpen")
+    }
+})
+
+
+
 // Sign Up
 const isRegisterHTML = window.location.href.includes('register.html');
 const isLoginHTML = window.location.href.includes('login.html');
-console.log('Register',isRegisterHTML)
-console.log('Login',isLoginHTML)
 
 if(isRegisterHTML){
     const registerForm = document.getElementById('registerForm') 

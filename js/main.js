@@ -1,15 +1,16 @@
+const localSubjectList = JSON.parse(localStorage.getItem("subjectsListStorage"));
+const isIndexHTML = window.location.href.includes('index.html')
+
 //Listen for auth changes
 auth.onAuthStateChanged(user =>{
     if(user){
-        console.log(user)
+        setSubjectsToRender()
     } else{
+        localStorage.removeItem("subjectsListStorage")
+        localStorage.removeItem("subjectToOpen")
         window.location.href = 'auth-login.html'
     }
 })
-
-
-const localSubjectList = JSON.parse(localStorage.getItem("subjectsListStorage"));
-const isIndexHTML = window.location.href.includes('index.html')
 
 /**
  * COURSES CONSTRUCTOR FUNCTION ES6
@@ -110,49 +111,53 @@ var subjectConverter = {
     }
 }
 
-const subjectsList = [];
+let subjectsList = [];
 
-if (!localSubjectList){
-    db.collection("courses") //TODO Cambiar coleccion y condicion, querys y lecturas
-    .withConverter(subjectConverter)
-    .get()
-    .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-        if (doc.exists) {
-            subjectsList.push(doc.data());
-        } else {
-            console.log("No existe el documento");
-        }
-        });
-        subjectsList.sort((a,b)=>{ //ordenar por status
-            if(a.status < b.status){
-                return -1
-            } else if(a.status > b.status){
-                return 1
-            }else{
-                return 0
+const setSubjectsToRender = () => {
+
+    if (!localSubjectList){
+        db.collection("courses") //TODO Cambiar coleccion y condicion, querys y lecturas
+        .withConverter(subjectConverter)
+        .get()
+        .then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+            if (doc.exists) {
+                subjectsList.push(doc.data());
+            } else {
+                console.log("No existe el documento");
             }
-        });
-        localStorage.setItem("subjectsListStorage",JSON.stringify(subjectsList));
-        renderAsideCards();
-        if(isIndexHTML){renderSubjectsCards();}
-    })
-    .catch((error) => {
-        console.log("Error al conseguir el documento:", error);
-    })
-} else {
-    localSubjectList.forEach((subject) => {
-        let classedSubject = Object.assign(new Subject(),subject);
-        subjectsList.push(classedSubject);
-    })
-    renderAsideCards();
-    if(isIndexHTML){renderSubjectsCards();}
+            });
+            subjectsList.sort((a,b)=>{ //ordenar por status
+                if(a.status < b.status){
+                    return -1
+                } else if(a.status > b.status){
+                    return 1
+                }else{
+                    return 0
+                }
+            });
+            localStorage.setItem("subjectsListStorage",JSON.stringify(subjectsList));
+            renderAsideCards();
+            if(isIndexHTML){renderSubjectsCards()}
+        })
+        .catch((error) => {
+            console.log("Error al conseguir el documento:", error.message);
+        })
+    } else {
+        localSubjectList.forEach((subject) => {
+            let classedSubject = Object.assign(new Subject(),subject);
+            subjectsList.push(classedSubject);
+            renderAsideCards();
+            if(isIndexHTML){renderSubjectsCards()}
+        })
+    }
 }
 
 /**
- * Esta función muestra las cards del curso solicitadas
+ * Esta función muestra las cards de las materias si se encuentra 
+ * en la pagina principal del Dashboard
  */
-function renderSubjectsCards (){ //TODO MODIFICAR LOS HREF
+const renderSubjectsCards = () => { 
 
     let cardsRender = '';
 
@@ -160,7 +165,7 @@ function renderSubjectsCards (){ //TODO MODIFICAR LOS HREF
 
         cardsRender = cardsRender + 
         `<div class="col">
-            <a href="#" class="card subject-card border-left-warning h-100">
+            <a href="subject.html" class="card subject-card border-left-warning h-100" data-id="${subject.code}">
                 <div class="card-body d-flex flex-column">
                     <div class="small subject-card-status bg-${subject.statusColor} px-2 py-1">${subject.status}</div>
                     <h5 class="card-title fw-bold">${subject.level +" "+subject.code+" - "+ subject.branch}</h5>
@@ -173,14 +178,28 @@ function renderSubjectsCards (){ //TODO MODIFICAR LOS HREF
 
     document.getElementById("subject-cards").innerHTML = cardsRender; //Div para las cards
 
+    let subjectATags = document.getElementById('subject-cards').querySelectorAll('a')
+
+    subjectATags.forEach(node =>{
+        node.addEventListener('click', event => {
+            event.preventDefault();
+            let subjectId = event.currentTarget.dataset.id;
+            localStorage.setItem('subjectToOpen',subjectId)
+            
+            window.location.href = 'subject.html'
+        })
+    })
 }
 
-function renderAsideCards(){
+
+/**
+ * Shows aside Subjects on any page
+ */
+const renderAsideCards = () => {
 
     let asideRender = '';
 
     subjectsList.forEach(subject =>{
-
         asideRender = asideRender +
         `<li class="accordion-item sidebar-item">
             <div class="accordion-header" id="flush-heading${subject.code}">
@@ -189,15 +208,15 @@ function renderAsideCards(){
                 </button>
             </div>
             <div id="flush-collapse${subject.code}" data-id="${subject.code}" class="accordion-collapse collapse" aria-labelledby="flush-heading${subject.code}" data-bs-parent="#subject-aside" >
-                <a href="">
+                <a href="subject.html">
                     <i class="fas fa-user-friends"></i>
                     <span>ALUMNOS</span>
                 </a>
-                <a href="">
+                <a href="subject.html">
                     <i class="fas fa-clipboard-list"></i>
                     <span>TEMARIO</span>
                 </a>
-                <a href="">
+                <a href="subject.html">
                     <i class="fas fa-book-open"></i>
                     <span>MATERIALES</span>
                 </a>
@@ -205,30 +224,38 @@ function renderAsideCards(){
         </li>`
     })
 
-    document.getElementById("subject-aside").innerHTML = asideRender; //Div para el aside
+    document.getElementById("subject-aside").innerHTML = asideRender;
 
-    let alltags = document.getElementById('subject-aside').querySelectorAll('a')
-    alltags.forEach(node =>{
+    let subjectATags = document.getElementById('subject-aside').querySelectorAll('a')
+
+    subjectATags.forEach(node =>{
         node.addEventListener('click', event => {
             event.preventDefault();
             let subjectId = event.currentTarget.parentElement.dataset.id;
             localStorage.setItem('subjectToOpen',subjectId)
-            event.defaultPrevented = ()=>true;
+            
             window.location.href = 'subject.html'
         })
     })
+    
 }
 
-const currentDate = new Date(Date.now())
-const formattedTime = 
-    (currentDate.getHours() > 9 ? currentDate.getHours() : '0'+currentDate.getHours())+":"
-    +(currentDate.getMinutes() > 9 ? currentDate.getMinutes() : '0'+currentDate.getMinutes())+":"
-    +(currentDate.getSeconds() > 9 ? currentDate.getSeconds() : '0'+currentDate.getSeconds());
-let language = navigator.language
+//Get current date and time
+const currentDate = new Date(Date.now());
+let language = navigator.language;
 
-//FullCalendar Initializer
-if(isIndexHTML){
-    document.addEventListener('DOMContentLoaded', function() {
+/**
+ * Show a weekly Calendar on a div with Id calendar
+ */
+document.addEventListener('DOMContentLoaded', function() {
+
+    if(isIndexHTML){
+        
+        const formattedTime = 
+        (currentDate.getHours() > 9 ? currentDate.getHours() : '0'+currentDate.getHours())+":"
+        +(currentDate.getMinutes() > 9 ? currentDate.getMinutes() : '0'+currentDate.getMinutes())+":"
+        +(currentDate.getSeconds() > 9 ? currentDate.getSeconds() : '0'+currentDate.getSeconds());
+
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'timeGridWeek',
@@ -257,12 +284,13 @@ if(isIndexHTML){
         ]
         });
         calendar.render();
-    });
-}
+    }
+});
 
 //LOGOUT
 
 const logout = document.getElementById('logout');
+
 logout.addEventListener('click', (event)=>{
     event.preventDefault();
     auth.signOut()
