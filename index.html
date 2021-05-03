@@ -19,8 +19,6 @@
     <!-- Full Calendar-->
     <link rel="stylesheet" href="css/fullcalendar/main.css">
 
-    <script src='js/vendors/fullCalendar.js'></script>
-
 </head>
 
 <body>
@@ -46,7 +44,7 @@
                             <span>DASHBOARD</span>
                         </a>
                     </li>
-                    <li class="sidebar-header">cursos</li>
+                    <li class="sidebar-header">SUBJECTS</li>
                     <div id="subject-aside">
                     </div>
                     <li class="sidebar-header">APPS</li>
@@ -96,7 +94,7 @@
             
                                 <!-- Sidebar Toggle (Topbar) -->
                                 <li class="nav-item dropdown nav-dropdown-toggler d-md-none">
-                                    <a class="nav-link" id="search-dropdown" role="button" data-toggle="sidebar">
+                                    <a class="nav-link" id="sidebar-toggler" role="button" data-toggle="sidebar">
                                         <i class="fa fa-bars"></i>
                                     </a>
                                 </li>
@@ -210,7 +208,7 @@
                                                 </div>
                                                 <div>
                                                     <div class="small">29 de Diciembre del 2020</div>
-                                                    <span class="fw-bold">El reporte mensual está listo para ser descargado!</span>
+                                                    <span class="fw-bold">Monthly report is ready to download!</span>
                                                 </div>
                                             </a>
                                             <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
@@ -221,7 +219,7 @@
                                                 </div>
                                                 <div>
                                                     <div class="small">5 de Diciembre del 2020</div>
-                                                    El pago de 48,000$ ha sido enviado!
+                                                    Your payment of 48,000$ has been sent!
                                                 </div>
                                             </a>
                                             <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
@@ -232,7 +230,7 @@
                                                 </div>
                                                 <div>
                                                     <div class="small">2 de Diciembre del 2020</div>
-                                                    Hemos encontrado actividades sin realizar!
+                                                    We have found activities without feedback!
                                                 </div>
                                             </a>
                                             <a class="dropdown-item text-center small" href="#">Show All Alerts</a>
@@ -240,14 +238,51 @@
                                     </li>
                                     <span class="nav-separator"></span>
             
-                                    <!-- USER LOGIN -->
-                                    <li class="nav-item">
-                                        
-                                        <!-- TO DO -- User Dropdown -->
-                                        <a class="nav-link nav-user" href="#"><img
+                                    <!-- User Logged -->
+                                    <li class="nav-item dropdown nav-dropdown-toggler">
+                                        <a class="nav-link dropdowm-toggle" id="user-dropdown" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false" href="#"><img
                                                 src="https://eshendetesia.com/images/user-profile.png" alt="User Picture" width="35px"
                                                 height="35px">
-                                            <span class="d-none d-md-inline fw-bold">Robert Martínez</span></a>
+                                            <span class="d-none d-md-inline fw-bold">Robert Martínez</span>
+                                        </a>
+
+                                        <!-- User Dropdown -->
+                                        <div class="dropdown-list dropdown-menu dropdown-menu-end
+                                        shadow nav-dropdown animation--grow-in" aria-labelledby="user-dropdown">
+                                            <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
+                                                <div>
+                                                    <div class="nav-dropdown-icon">
+                                                        <i class="fas fa-user"></i>
+                                                    </div>
+                                                </div>
+                                                <span>PROFILE</span>
+                                            </a>
+                                            <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
+                                                <div>
+                                                    <div class="nav-dropdown-icon">
+                                                        <i class="fas fa-cogs"></i>
+                                                    </div>
+                                                </div>
+                                                <span>SETTINGS</span>
+                                            </a>
+                                            <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
+                                                <div>
+                                                    <div class="nav-dropdown-icon">
+                                                        <i class="fas fa-clipboard-list"></i>
+                                                    </div>
+                                                </div>
+                                                <span>ACTIVITY LOG</span>
+                                            </a>
+                                            <a id="logout" class="dropdown-item d-flex align-items-center nav-dropdown-item dropdown-logout" href="#">
+                                                <div>
+                                                    <div class="nav-dropdown-icon">
+                                                        <i class="fas fa-sign-out-alt"></i>
+                                                    </div>
+                                                </div>
+                                                <span>LOGOUT</span>
+                                            </a>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -267,23 +302,22 @@
                 <!-- bottom section -->
                 <div class="row">
                     <div class="row px-2 m-0 gx-5 d-flex align-items-stretch justify-content-center">
-                        <!-- calendar -->
                         <!-- recent table -->
-                        <section class="col-12 mt-4 col-lg-6">
+                        <section class="col-12 mt-4 col-xl-7">
                             <div><h2>Recent Activities</h2></div>
                             <div class="table-responsive" id="recentTable">
                                 <table class="table table-hover">
                                     <thead class="bg-primary text-white">
                                     <tr>
-                                        <th scope="col">Alumno</th>
-                                        <th scope="col">Curso</th>
-                                        <th scope="col">Fecha</th>
-                                        <th scope="col">Actividad</th>
+                                        <th scope="col">Student</th>
+                                        <th scope="col">Subject</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Activity</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr class="align-middle">
-                                        <th scope="row"><img class="rounded-circle me-2" img="" src="https://eshendetesia.com/images/user-profile.png" alt="User Picture" width="35px" height="35px">Mark Otto</th>
+                                        <th scope="row"><img class="rounded-circle me-2" img="" src="https://eshendetesia.com/images/user-profile.png" alt="User Picture" width="35px" height="35px"><div>Jason Doe</div></th>
                                         <td>PRACTITIONER B1</td>
                                         <td>20/04/2020</td>
                                         <td>Bitácora</td>
@@ -304,7 +338,8 @@
                                 </table>
                             </div>
                         </section>
-                        <section class="col-12 mt-4 col-lg-6" >
+                        <!-- calendar -->
+                        <section class="col-12 mt-4 col-xl-5" >
                             <div id="calendar"></div>
                         </section>
                     </div>
@@ -346,10 +381,12 @@
     <!-- Bootstrap JS -->
     <script src="js/vendors/bootstrap.bundle.js"></script>
 
+    <!-- Full Calendar Script -->
+    <script src='js/vendors/fullCalendar.js'></script>
+    <script src='js/vendors/locales/es.js'></script> 
+
     <!-- Linking Js, Bootstrap missing -->
     <script src="js/main.js"></script>
-
-    <!-- Full Calendar Script -->
     
 </body>
 

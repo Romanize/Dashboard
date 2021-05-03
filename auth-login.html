@@ -15,53 +15,56 @@
     <!-- Linking CSS, Bootstrap included -->
     <link rel="stylesheet" href="css/main.css">
 
+    <!-- Linking auth js -->
+    <script src="js/auth.js" defer></script>
+
 
 </head>
 
 <body class="bg-light">
 
-    <!-- LOGIN -->
+    <!-- FORGOT PASSWORD -->
     <div id="app">
         <section class="section">
             <div class="container mt-5">
             <div class="row">
                 <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-                <div class="login-brand">
+                <div class="auth-brand">
                     <img src="https://www.stickers-factory.com/media/catalog/product/cache/1/image/1000x/040ec09b1e35df139433887a97daa66f/1/2/12019_00.png" alt="logo" width="100" class="shadow rounded-circle">
                 </div>
     
                 <div class="card border-top-warning">
-                    <div class="card-header login-header"><h4>Login</h4></div>
+                    <div class="card-header auth-header"><h4>Login</h4></div>
     
                     <div class="card-body">
-                    <form method="POST" action="#" class="needs-validation" novalidate="">
-                        <div class="form-group mb-5">
+                    <form method="POST" id="loginForm">
+                        <div class="form-group mb-3">
                         <label for="email">Email</label>
-                        <input id="email" type="email" class="form-control login-control" name="email" tabindex="1" required autofocus>
+                        <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
                         <div class="invalid-feedback">
-                            Por favor, ingresa tu email
+                            Please, insert your email
                         </div>
                         </div>
     
                         <div class="form-group mb-3">
                         <div class="d-block">
-                            <label for="password" class="control-label">Contraseña</label>
+                            <label for="password">Password</label>
                             <div class="float-end">
-                            <a href="#" class="text-small">
-                                ¿Olvidaste la contraseña?
+                            <a href="auth-forgot-password.html" class="text-small">
+                                ¿Did you forget your password?
                             </a>
                             </div>
                         </div>
-                        <input id="password" type="password" class="form-control login-control" name="password" tabindex="2" required>
+                        <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
                         <div class="invalid-feedback">
-                            Por favor, ingresa tu contraseña
+                            Please, insert your password.
                         </div>
                         </div>
     
-                        <div class="form-group mb-5">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" name="remember" class="custom-control-input login-control" tabindex="3" id="remember-me">
-                                <label class="custom-control-label" for="remember-me">Recuérdame</label>
+                        <div class="form-group mb-3">
+                            <div>
+                                <input type="checkbox" name="remember" tabindex="3" id="remember-me">
+                                <label for="remember-me">Remember me</label>
                             </div>
                         </div>
     
@@ -72,22 +75,12 @@
                         </div>
                     </form>
                     <div class="text-center mt-4 mb-3">
-                        <div class="text-muted">LOGIN REDES SOCIALES</div>
+                        <div class="text-muted">Social Media Login</div>
                     </div>
-                    <div class="row sm-gutters">
-                        <div class="d-grid col-4">
-                            <a class="btn btn-primary ">
-                                <span class="fab fa-facebook"></span> Facebook
-                            </a>
-                        </div>
-                        <div class="d-grid col-4 align-items-center">
+                    <div class="row">
+                        <div class="d-grid offset-4 col-4 align-items-center">
                             <a class="btn btn-danger" >
                                 <span class="fab fa-google"></span><br> Google
-                            </a>                                
-                        </div>
-                        <div class="d-grid col-4">
-                            <a class="btn btn-primary align-items-center">
-                                <span class="fab fa-twitter"></span><br> Twitter
                             </a>                                
                         </div>
                     </div>
@@ -95,7 +88,7 @@
                     </div>
                 </div>
                 <div class="mt-5 text-muted text-center">
-                    ¿No tienes una cuenta? <a href="#">Crear cuenta</a>
+                    ¿Don't you have an account? <a href="auth-register.html">Create Account</a>
                 </div>
                 <div class="auth-footer">
                     Copyright &copy; Robert Martinez 2021

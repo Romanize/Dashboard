@@ -1,14 +1,27 @@
+//Listen for auth changes
+auth.onAuthStateChanged(user =>{
+    if(user){
+        console.log(user)
+    } else{
+        window.location.href = 'auth-login.html'
+    }
+})
+
+
+const localSubjectList = JSON.parse(localStorage.getItem("subjectsListStorage"));
+const isIndexHTML = window.location.href.includes('index.html')
+
 /**
  * COURSES CONSTRUCTOR FUNCTION ES6
  */
- class Subjects {
+ class Subject {
     constructor (level, code, branch, status, weekDay, timeStart, timeEnd, dayStart, dayEnd) {
-        this.code = code.toUpperCase();
-        this.level = level.toUpperCase();
-        this.branch = branch.toUpperCase();
-        this.status = status.toUpperCase();
+        this.code = code;
+        this.level = level;
+        this.branch = branch;
+        this.status = status;
         this.schedule = {
-            weekDay : weekDay.toUpperCase(),
+            weekDay : weekDay,
             timeStart : timeStart,
             timeEnd : timeEnd,
             dayStart : dayStart,
@@ -20,7 +33,7 @@
      * @returns long month string and year in spanish
      */
     dayStartSplitter () {
-        let dateParts = this.schedule.dayStart.split("/");
+        const dateParts = this.schedule.dayStart.split("/");
         let returnDate = new Date(+dateParts[2],dateParts[1]-1,+dateParts[0]);
         const options = {month:'long',year:'numeric'};
     
@@ -28,8 +41,9 @@
             
         return returnMonth;
     };
+
     dayEndSplitter () {
-        let dateParts = this.schedule.dayEnd.split("/");
+        const dateParts = this.schedule.dayEnd.split("/");
         let returnDate = new Date(+dateParts[2],dateParts[1]-1,+dateParts[0]);
         const options = {month:'long',year:'numeric'};
     
@@ -42,7 +56,7 @@
      * description builder
      * @returns right description per course
      */
-    description() {
+    get description() {
         if(this.branch == 'PNL'){
             switch(this.level){
                 case 'PRACTITIONER':
@@ -56,6 +70,19 @@
             }
         } else {
             return "Falta agregar rama Coaching"
+        }
+    }
+
+    get statusColor() {
+        switch(this.status){
+            case "CURSANDO":
+                return 'success'
+            case "TERMINADO":
+                return 'dark'
+            case 'PROXIMAMENTE':
+                return 'warning'
+            default:
+                return 'primary'
         }
     }
 }
@@ -79,78 +106,89 @@ var subjectConverter = {
     },
     fromFirestore: function(snapshot, options){
         const data = snapshot.data(options);
-        return new Subjects(data.level, data.code, data.branch, data.status, data.schedule.weekDay, data.schedule.timeStart, data.schedule.timeEnd, data.schedule.dayStart, data.schedule.dayEnd);
+        return new Subject(data.level, data.code, data.branch, data.status, data.schedule.weekDay, data.schedule.timeStart, data.schedule.timeEnd, data.schedule.dayStart, data.schedule.dayEnd);
     }
 }
 
-let subjectsList = [];
+const subjectsList = [];
 
-db.collection("courses") //TODO Cambiar coleccion y condicion
-  .withConverter(subjectConverter)
-  .get()
-  .then((snapshot) => {
-    snapshot.docs.forEach((doc) => {
-      if (doc.exists) {
-        // Agregar al Array
-        subjectsList.push(doc.data());
-      } else {
-        console.log("No existe el documento");
-      }
-    });
-    console.log(subjectsList);
-    subjectsList.sort((a,b)=>{ //ordenar por status
-        if(a.status < b.status){
-            return -1
-        } else if(a.status > b.status){
-            return 1
-        }else{
-            return 0
+if (!localSubjectList){
+    db.collection("courses") //TODO Cambiar coleccion y condicion, querys y lecturas
+    .withConverter(subjectConverter)
+    .get()
+    .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+        if (doc.exists) {
+            subjectsList.push(doc.data());
+        } else {
+            console.log("No existe el documento");
         }
-    });
-    renderSubjects();
-  })
-  .catch((error) => {
-    console.log("Error al conseguir el documento:", error);
-  })
-
-let possibleStatus = {
-    CURSANDO : "success",
-    TERMINADO : "dark",
-    PROXIMAMENTE : "warning"
+        });
+        subjectsList.sort((a,b)=>{ //ordenar por status
+            if(a.status < b.status){
+                return -1
+            } else if(a.status > b.status){
+                return 1
+            }else{
+                return 0
+            }
+        });
+        localStorage.setItem("subjectsListStorage",JSON.stringify(subjectsList));
+        renderAsideCards();
+        if(isIndexHTML){renderSubjectsCards();}
+    })
+    .catch((error) => {
+        console.log("Error al conseguir el documento:", error);
+    })
+} else {
+    localSubjectList.forEach((subject) => {
+        let classedSubject = Object.assign(new Subject(),subject);
+        subjectsList.push(classedSubject);
+    })
+    renderAsideCards();
+    if(isIndexHTML){renderSubjectsCards();}
 }
 
-let pedirPrompt = prompt("Para cumplir con la consigna del prompt, ingresa las cards que quieres mostar. (1-5)")
 /**
  * Esta función muestra las cards del curso solicitadas
- * @param {Valor requerido a mostrar} requestedCourses 
  */
-function renderSubjects (){ //TODO MODIFICAR LOS HREF
+function renderSubjectsCards (){ //TODO MODIFICAR LOS HREF
 
     let cardsRender = '';
-    let asideRender = '';
 
-    for(i=0;i<pedirPrompt;i++){ // cambiar por length
+    subjectsList.forEach(subject =>{
 
         cardsRender = cardsRender + 
         `<div class="col">
             <a href="#" class="card subject-card border-left-warning h-100">
                 <div class="card-body d-flex flex-column">
-                    <div class="small subject-card-status bg-${possibleStatus[subjectsList[i].status]} px-3 py-1">${subjectsList[i].status}</div>
-                    <h5 class="card-title fw-bold">${subjectsList[i].level +" "+subjectsList[i].code+" - "+ subjectsList[i].branch}</h5>
-                    <p class="small text-end blockquote-footer flex-grow-1">${subjectsList[i].schedule.weekDay + " " + subjectsList[i].schedule.timeStart
-                + " a " + subjectsList[i].schedule.timeEnd}</p>
+                    <div class="small subject-card-status bg-${subject.statusColor} px-2 py-1">${subject.status}</div>
+                    <h5 class="card-title fw-bold">${subject.level +" "+subject.code+" - "+ subject.branch}</h5>
+                    <p class="small text-end blockquote-footer flex-grow-1">${subject.schedule.weekDay + " " + subject.schedule.timeStart
+                + " a " + subject.schedule.timeEnd}</p>
                 </div>
             </a>
         </div>`;
+    })
+
+    document.getElementById("subject-cards").innerHTML = cardsRender; //Div para las cards
+
+}
+
+function renderAsideCards(){
+
+    let asideRender = '';
+
+    subjectsList.forEach(subject =>{
 
         asideRender = asideRender +
         `<li class="accordion-item sidebar-item">
-            <div class="accordion-header" id="flush-heading${subjectsList[i].code}">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${subjectsList[i].code}" aria-expanded="false" aria-controls="flush-collapse${subjectsList[i].code}">
-                ${subjectsList[i].level +" "+subjectsList[i].code}
+            <div class="accordion-header" id="flush-heading${subject.code}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${subject.code}" aria-expanded="false" aria-controls="flush-collapse${subject.code}">
+                ${subject.level +" "+subject.code}
                 </button>
             </div>
-            <div id="flush-collapse${subjectsList[i].code}" class="accordion-collapse collapse" aria-labelledby="flush-heading${subjectsList[i].code}" data-bs-parent="#subject-aside" >
+            <div id="flush-collapse${subject.code}" data-id="${subject.code}" class="accordion-collapse collapse" aria-labelledby="flush-heading${subject.code}" data-bs-parent="#subject-aside" >
                 <a href="">
                     <i class="fas fa-user-friends"></i>
                     <span>ALUMNOS</span>
@@ -165,29 +203,74 @@ function renderSubjects (){ //TODO MODIFICAR LOS HREF
                 </a>
             </div>
         </li>`
-    };
+    })
 
-    document.querySelector("#subject-cards").innerHTML = cardsRender; //Div para las cards
-    document.querySelector("#subject-aside").innerHTML = asideRender; //Div para el aside
+    document.getElementById("subject-aside").innerHTML = asideRender; //Div para el aside
+
+    let alltags = document.getElementById('subject-aside').querySelectorAll('a')
+    alltags.forEach(node =>{
+        node.addEventListener('click', event => {
+            event.preventDefault();
+            let subjectId = event.currentTarget.parentElement.dataset.id;
+            localStorage.setItem('subjectToOpen',subjectId)
+            event.defaultPrevented = ()=>true;
+            window.location.href = 'subject.html'
+        })
+    })
 }
 
-//FullCalendar Initializer
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth',
-      headerToolbar: {
-        left: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
-      },
-      footerToolbar: {        
-          left: 'prev,next',
-          right: 'today'
-      },
-      navLinks: true,
-      selectable:true,
-    });
-    calendar.render();
-  });
+const currentDate = new Date(Date.now())
+const formattedTime = 
+    (currentDate.getHours() > 9 ? currentDate.getHours() : '0'+currentDate.getHours())+":"
+    +(currentDate.getMinutes() > 9 ? currentDate.getMinutes() : '0'+currentDate.getMinutes())+":"
+    +(currentDate.getSeconds() > 9 ? currentDate.getSeconds() : '0'+currentDate.getSeconds());
+let language = navigator.language
 
-//TODO DROPDOWN PROFILE, LISTA DE TAREAS APP.
+//FullCalendar Initializer
+if(isIndexHTML){
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        themeSystem: 'bootstrap',
+        locale: language,
+        allDaySlot: false,
+        headerToolbar: {
+            left: 'prev',
+            center: 'title',
+            right: 'next',
+        },
+        scrollTime: formattedTime,
+        selectable:true,
+        nowIndicator:true,
+        events: [
+            {
+                title:  'My Event',
+                startTime:  '14:30:00',
+                endTime: '18:30:00',
+                allDay: false,
+                url: 'http://zoom.us',
+                daysOfWeek: [ '3' ],
+                startRecur: '2021-05-01',
+                endRecur: '2021-05-21',
+            }
+        ]
+        });
+        calendar.render();
+    });
+}
+
+//LOGOUT
+
+const logout = document.getElementById('logout');
+logout.addEventListener('click', (event)=>{
+    event.preventDefault();
+    auth.signOut()
+    .then(()=>{
+        window.location.href = 'auth-login.html'
+    })
+    .catch(error=>console.log(error.code,error.message))
+})
+
+
+//TODO, LISTA DE TAREAS APP.

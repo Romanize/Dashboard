@@ -7,14 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 
+    <!-- Linking Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
-    <!-- Linking CSS, Bootstrap included -->
+    <!-- Linking CSS, Bootstrap, Font Awesome -->
     <link rel="stylesheet" href="css/main.css">
 
+    <!-- Full Calendar-->
+    <link rel="stylesheet" href="css/fullcalendar/main.css">
+
+    <!-- Linking Js, Bootstrap missing -->
+    <script src="js/main.js"></script>
 
 </head>
 
@@ -24,40 +30,56 @@
         <div class="row">
 
             <!-- Sidebar -->
-            <aside class="bg-light col sidebar vh-100 fixed-left">
+            <aside class="bg-light col sidebar vh-100 d-none d-xl-inline">
                             
                 <!-- Brand -->
                 <div class="sidebar-brand">
                     <a href="#">
-                        Didactic zone
+                        DIDACTIC ZONE
                     </a>
                 </div>
 
-                <ul class="sidebar-menu">
+                <ul class="sidebar-menu accordion accordion-flush">
                     <li class="sidebar-header">DASHBOARD</li>
-                    <li class="sidebar-item">
+                    <li class="accordion-item sidebar-item">
                         <a href="">
                             <i class="fas fa-columns"></i>
                             <span>DASHBOARD</span>
                         </a>
                     </li>
-                    <li class="sidebar-header">cursos</li>
-                    <li class="sidebar-item sidebar-dropdown">
+                    <li class="sidebar-header">SUBJECTS</li>
+                    <div id="subject-aside">
+                    </div>
+                    <li class="sidebar-header">APPS</li>
+                    <li class="accordion-item sidebar-item">
                         <a href="">
-                            <i class="fas fa-book"></i>
-                            <span>MASTER C2</span>
+                            <i class="fas fa-envelope"></i>
+                            <span>MESSAGES</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="accordion-item sidebar-item">
                         <a href="">
-                            <i class="fas fa-book"></i>
-                            <span>MASTER D5</span>
+                            <i class="fas fa-clock"></i>
+                            <span>SCHEDULE</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="accordion-item sidebar-item">
                         <a href="">
-                            <i class="fas fa-book"></i>
-                            <span>PRACTITIONER B1</span>
+                            <i class="fas fa-list"></i>
+                            <span>TO DO LIST</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-header">SETTINGS</li>
+                    <li class="accordion-item sidebar-item">
+                        <a href="">
+                            <i class="fas fa-cogs"></i>
+                            <span>SETTINGS</span>
+                        </a>
+                    </li>
+                    <li class="accordion-item sidebar-item">
+                        <a href="">
+                            <i class="fas fa-moon"></i>
+                            <span>DARK MODE</span>
                         </a>
                     </li>
                 </ul>
@@ -66,7 +88,7 @@
             <!-- Content -->
             <div class="container-fluid col">
                 <!-- Navbar -->
-                <div class="row">
+                <div class="row sticky-top">
                     <nav class="navbar navbar-expand navbar-light bg-light shadow mb-3 p-0 w-100">
                         <div class="container-fluid m-2">
 
@@ -75,7 +97,7 @@
             
                                 <!-- Sidebar Toggle (Topbar) -->
                                 <li class="nav-item dropdown nav-dropdown-toggler d-md-none">
-                                    <a class="nav-link" id="search-dropdown" role="button" data-toggle="sidebar">
+                                    <a class="nav-link" id="sidebar-toggler" role="button" data-toggle="sidebar">
                                         <i class="fa fa-bars"></i>
                                     </a>
                                 </li>
@@ -189,7 +211,7 @@
                                                 </div>
                                                 <div>
                                                     <div class="small">29 de Diciembre del 2020</div>
-                                                    <span class="fw-bold">El reporte mensual está listo para ser descargado!</span>
+                                                    <span class="fw-bold">Monthly report is ready to download!</span>
                                                 </div>
                                             </a>
                                             <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
@@ -200,7 +222,7 @@
                                                 </div>
                                                 <div>
                                                     <div class="small">5 de Diciembre del 2020</div>
-                                                    El pago de 48,000$ ha sido enviado!
+                                                    Your payment of 48,000$ has been sent!
                                                 </div>
                                             </a>
                                             <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
@@ -211,7 +233,7 @@
                                                 </div>
                                                 <div>
                                                     <div class="small">2 de Diciembre del 2020</div>
-                                                    Hemos encontrado actividades sin realizar!
+                                                    We have found activities without feedback!
                                                 </div>
                                             </a>
                                             <a class="dropdown-item text-center small" href="#">Show All Alerts</a>
@@ -219,14 +241,51 @@
                                     </li>
                                     <span class="nav-separator"></span>
             
-                                    <!-- USER LOGIN -->
-                                    <li class="nav-item">
-                                        
-                                        <!-- TO DO -- User Dropdown -->
-                                        <a class="nav-link nav-user" href="#"><img
+                                    <!-- User Logged -->
+                                    <li class="nav-item dropdown nav-dropdown-toggler">
+                                        <a class="nav-link dropdowm-toggle" id="user-dropdown" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false" href="#"><img
                                                 src="https://eshendetesia.com/images/user-profile.png" alt="User Picture" width="35px"
                                                 height="35px">
-                                            <span class="d-none d-md-inline fw-bold">Robert Martínez</span></a>
+                                            <span class="d-none d-md-inline fw-bold">Robert Martínez</span>
+                                        </a>
+
+                                        <!-- User Dropdown -->
+                                        <div class="dropdown-list dropdown-menu dropdown-menu-end
+                                        shadow nav-dropdown animation--grow-in" aria-labelledby="user-dropdown">
+                                            <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
+                                                <div>
+                                                    <div class="nav-dropdown-icon">
+                                                        <i class="fas fa-user"></i>
+                                                    </div>
+                                                </div>
+                                                <span>PROFILE</span>
+                                            </a>
+                                            <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
+                                                <div>
+                                                    <div class="nav-dropdown-icon">
+                                                        <i class="fas fa-cogs"></i>
+                                                    </div>
+                                                </div>
+                                                <span>SETTINGS</span>
+                                            </a>
+                                            <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
+                                                <div>
+                                                    <div class="nav-dropdown-icon">
+                                                        <i class="fas fa-clipboard-list"></i>
+                                                    </div>
+                                                </div>
+                                                <span>ACTIVITY LOG</span>
+                                            </a>
+                                            <a id="logout" class="dropdown-item d-flex align-items-center nav-dropdown-item dropdown-logout" href="#">
+                                                <div>
+                                                    <div class="nav-dropdown-icon">
+                                                        <i class="fas fa-sign-out-alt"></i>
+                                                    </div>
+                                                </div>
+                                                <span>LOGOUT</span>
+                                            </a>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -235,7 +294,13 @@
                     </nav>
                 </div>
                 <!-- Navbar END -->
-
+                
+                <!-- main content -->
+                <div class="row">
+                <!-- content cards -->
+                    <main class="row row-cols-1 d-flex m-0" id="schedule-table">
+                    </main>
+                </div>
             </div>
         </div>
     </div>
@@ -273,8 +338,10 @@
     <!-- Bootstrap JS -->
     <script src="js/vendors/bootstrap.bundle.js"></script>
 
-    <!-- Linking Js, Bootstrap ain't here -->
-    <script src="js/main.js"></script>
+    <!-- Full Calendar Script -->
+    <script src='js/vendors/fullCalendar.js'></script>
+    <script src='js/vendors/locales/es.js'></script> 
+    
 </body>
 
 </html>
