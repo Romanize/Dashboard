@@ -12330,6 +12330,9 @@ body {
 .fc-timegrid-now-indicator-arrow) {
   border-color: rgba(128, 128, 128, 0.2); }
 
+.modal-body {
+  min-height: 70vh; }
+
 .border-left-primary {
   border-left: 0.25rem solid #0d6efd !important; }
 

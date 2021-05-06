@@ -56,7 +56,7 @@
                         </a>
                     </li>
                     <li class="accordion-item sidebar-item">
-                        <a href="#" id="schedule" data-bs-toggle="modal" data-bs-target="#calendarModal">
+                        <a href="#scheduleModal" id="schedule" data-bs-toggle="modal">
                             <i class="fas fa-clock"></i>
                             <span>SCHEDULE</span>
                         </a>
@@ -347,8 +347,8 @@
     </div>
   
     <!-- Modal -->
-    <div class="modal modal-fullscreen-lg-down fade" id="calendarModal" tabindex="-1" aria-labelledby="calendarModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+    <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-fullscreen-sm-down modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Your Schedule</h5>

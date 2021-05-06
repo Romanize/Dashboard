@@ -273,10 +273,16 @@ const formattedTime = //TODO -- const??
 +(currentDate.getMinutes() > 9 ? currentDate.getMinutes() : '0'+currentDate.getMinutes())+":"
 +(currentDate.getSeconds() > 9 ? currentDate.getSeconds() : '0'+currentDate.getSeconds());
 
+var appCalendar;
+$("#scheduleModal").on('shown.bs.modal', ()=>appCalendar.updateSize())
+
+
 /**
  * Show a weekly Calendar on a div with Id calendar
  */
 document.addEventListener('DOMContentLoaded', function() {
+    
+    appCalendarRender();
 
     $('#sidebarApps a').click(event=>{
         event.preventDefault()
@@ -286,7 +292,6 @@ document.addEventListener('DOMContentLoaded', function() {
         indexCalendarRender();
     }
 
-    appCalendarRender();
 });
 
 //LOGOUT
@@ -335,11 +340,12 @@ const indexCalendarRender = () => {
 
 const appCalendarRender = () => {
     let calendarEl = document.getElementById('calendarModalRender')
-    let calendar = new FullCalendar.Calendar(calendarEl, {
+    appCalendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         themeSystem: 'bootstrap',
         locale: language,
         allDaySlot: false,
+        contentHeight: "100%",
         headerToolbar: {
             left: 'prev',
             center: 'title',
@@ -361,6 +367,6 @@ const appCalendarRender = () => {
             }
         ]
     });
-    calendar.render();
+    appCalendar.render();
 }
 //TODO, LISTA DE TAREAS APP, CALENDAR APP RESIZE
