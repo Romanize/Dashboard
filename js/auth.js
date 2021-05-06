@@ -1,10 +1,10 @@
-const isRegisterHTML = window.location.href.includes('register.html');
-const isLoginHTML = window.location.href.includes('login.html');
+const isRegisterHTML = location.href.includes('register.html');
+const isLoginHTML = location.href.includes('login.html');
 
 //Listen for auth changes
 auth.onAuthStateChanged(user =>{
     if(user){
-        if(isLoginHTML){window.location.href = 'index.html'}
+        if(isLoginHTML){location.href = 'index.html'}
     } else{
         localStorage.removeItem("subjectToOpen")
     }
@@ -42,7 +42,7 @@ if(isRegisterHTML){
                     auth.currentUser.updateProfile({
                         displayName: `${firstName} ${lastName}`,
                         photoURL: 'https://eshendetesia.com/images/user-profile.png'
-                    }).then(()=>{window.location.href = 'index.html'})
+                    }).then(()=>{location.href = 'index.html'})
                 }).catch(error=>console.log(error.message))
         }else{
             document.getElementById('password').value = '';
@@ -65,7 +65,7 @@ if(isLoginHTML){
 
         auth.signInWithEmailAndPassword(email,password)
             .then((credentialUser)=>{
-                window.location.href = 'index.html'
+                location.href = 'index.html'
             })
             .catch(error=>{
                 console.log(error.code,error.message);

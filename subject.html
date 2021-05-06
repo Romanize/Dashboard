@@ -13,10 +13,8 @@
         href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
-    <!-- Linking CSS, Bootstrap, Font Awesome -->
+    <!-- Linking CSS, Bootstrap, Font Awesome / FullCalendar-->
     <link rel="stylesheet" href="css/main.css">
-
-    <!-- Full Calendar-->
     <link rel="stylesheet" href="css/fullcalendar/main.css">
 
     <!-- Linking Js, Bootstrap missing -->
@@ -26,76 +24,72 @@
 
 <body>
 
-    <div class="container-fluid">
-        <div class="row">
+    <div class="container-fluid"></div>
+     <div class="row">
+        <!-- Sidebar -->
+        <aside class="bg-light col sidebar vh-100 d-none d-xl-inline">
+                        
+            <!-- Brand -->
+            <div class="sidebar-brand">
+                <a href="index.html">
+                    DIDACTIC ZONE
+                </a>
+            </div>
 
-            <!-- Sidebar -->
-            <aside class="bg-light col sidebar vh-100 d-none d-xl-inline">
-                            
-                <!-- Brand -->
-                <div class="sidebar-brand">
+            <ul class="sidebar-menu accordion accordion-flush">
+                <li class="sidebar-header">DASHBOARD</li>
+                <li class="accordion-item sidebar-item">
                     <a href="index.html">
-                        DIDACTIC ZONE
+                        <i class="fas fa-columns"></i>
+                        <span>DASHBOARD</span>
                     </a>
+                </li>
+                <li class="sidebar-header">SUBJECTS</li>
+                <div id="subject-aside">
                 </div>
-
-                <ul class="sidebar-menu accordion accordion-flush">
-                    <li class="sidebar-header">DASHBOARD</li>
-                    <li class="accordion-item sidebar-item">
-                        <a href="index.html">
-                            <i class="fas fa-columns"></i>
-                            <span>DASHBOARD</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-header">SUBJECTS</li>
-                    <div id="subject-aside">
-                    </div>
-                    <li class="sidebar-header">APPS</li>
-                    <li class="accordion-item sidebar-item">
-                        <a href="">
-                            <i class="fas fa-envelope"></i>
-                            <span>MESSAGES</span>
-                        </a>
-                    </li>
-                    <li class="accordion-item sidebar-item">
-                        <a href="">
-                            <i class="fas fa-clock"></i>
-                            <span>SCHEDULE</span>
-                        </a>
-                    </li>
-                    <li class="accordion-item sidebar-item">
-                        <a href="">
-                            <i class="fas fa-list"></i>
-                            <span>TO DO LIST</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-header">SETTINGS</li>
-                    <li class="accordion-item sidebar-item">
-                        <a href="">
-                            <i class="fas fa-cogs"></i>
-                            <span>SETTINGS</span>
-                        </a>
-                    </li>
-                    <li class="accordion-item sidebar-item">
-                        <a href="">
-                            <i class="fas fa-moon"></i>
-                            <span>DARK MODE</span>
-                        </a>
-                    </li>
-                </ul>
-            </aside>
-            
-            <!-- Content -->
-            <div class="container-fluid col">
+                <li class="sidebar-header" id="sidebarApps">APPS</li>
+                <li class="accordion-item sidebar-item">
+                    <a href="#" id="messages" data-toggle="modal" data-target="#messagesModal">
+                        <i class="fas fa-envelope"></i>
+                        <span>MESSAGES</span>
+                    </a>
+                </li>
+                <li class="accordion-item sidebar-item">
+                    <a href="#" id="schedule" data-toggle="modal" data-target="#calendarModal">
+                        <i class="fas fa-clock"></i>
+                        <span>SCHEDULE</span>
+                    </a>
+                </li>
+                <li class="accordion-item sidebar-item">
+                    <a href="#" id="toDoList" data-toggle="modal" data-target="#toDoModal">
+                        <i class="fas fa-list"></i>
+                        <span>TO DO LIST</span>
+                    </a>
+                </li>
+                <li class="sidebar-header">SETTINGS</li>
+                <li class="accordion-item sidebar-item">
+                    <a href="#">
+                        <i class="fas fa-cogs"></i>
+                        <span>SETTINGS</span>
+                    </a>
+                </li>
+                <li class="accordion-item sidebar-item">
+                    <a href="">
+                        <i class="fas fa-moon"></i>
+                        <span>DARK MODE</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        
+        <!-- Content -->
+        <div class="container-fluid col">
                 <!-- Navbar -->
                 <div class="row sticky-top">
-                    <nav class="navbar navbar-expand navbar-light bg-light shadow mb-3 p-0 w-100">
-                        <div class="container-fluid m-2">
+                    <nav class="navbar navbar-expand navbar-light bg-light shadow mb-3 px-3 w-100">
 
-
+                            <!-- TODO Sidebar Toggle (Topbar) -->
                             <ul class="navbar-nav">
-            
-                                <!-- Sidebar Toggle (Topbar) -->
                                 <li class="nav-item dropdown nav-dropdown-toggler d-md-none">
                                     <a class="nav-link" id="sidebar-toggler" role="button" data-toggle="sidebar">
                                         <i class="fa fa-bars"></i>
@@ -243,7 +237,8 @@
             
                                     <!-- User Logged -->
                                     <li class="nav-item dropdown nav-dropdown-toggler">
-                                        <a class="nav-link dropdowm-toggle" id="user-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                                        <a class="nav-link dropdowm-toggle" id="user-dropdown" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false" href="#">
                                             <img alt="User Picture" width="35px" height="35px" id="user-image">
                                             <span id="user-name" class="d-none d-md-inline fw-bold"></span>
                                         </a>
@@ -287,20 +282,14 @@
                                     </li>
                                 </ul>
                             </div>
-                            <link rel="stylesheet" href="">
-                        </div>
                     </nav>
                 </div>
                 <!-- Navbar END -->
-                
+
                 <!-- main content -->
-                <div class="row">
-                <!-- content cards -->
-                    <main class="row row-cols-1 d-flex m-0" id="schedule-table">
-                    </main>
-                </div>
-            </div>
+                <div id="pruebacontenido">R</div>
         </div>
+    </div>
     </div>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -333,12 +322,13 @@
         const db = firebase.firestore();
     </script>
 
-    <!-- Bootstrap JS -->
+    <!-- Jquery & Bootstrap JS -->
+    <script src="js/vendors/jquery-3.6.0.js"></script>
     <script src="js/vendors/bootstrap.bundle.js"></script>
 
     <!-- Full Calendar Script -->
     <script src='js/vendors/fullCalendar.js'></script>
-    <script src='js/vendors/locales/es.js'></script> 
+    <script src='js/vendors/locales/es.js'></script>  
     
 </body>
 

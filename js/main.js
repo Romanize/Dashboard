@@ -1,5 +1,7 @@
 const localSubjectList = JSON.parse(localStorage.getItem("subjectsListStorage"));
-const isIndexHTML = window.location.href.includes('index.html')
+console.log(localSubjectList)
+const isIndexHTML = (location.pathname === "/" || location.pathname === "/index.html")
+const isSubjectHTML = (location.pathname === "/subject.html")
 
 //Listen for auth changes
 auth.onAuthStateChanged(user =>{
@@ -129,7 +131,6 @@ const subjectConverter = {
 let subjectsList = [];
 
 const setSubjectsToRender = () => {
-
     if (!localSubjectList){
         db.collection("courses") //TODO Cambiar coleccion y condicion, querys y lecturas
         .withConverter(subjectConverter)
@@ -168,6 +169,16 @@ const setSubjectsToRender = () => {
     }
 }
 
+let subjectId = localStorage.getItem('subjectToOpen') || subjectsList[0].id
+
+
+/**
+ * Para renderizar la información en el subject.html
+ */
+if(isSubjectHTML){
+    $('#pruebacontenido').html(subjectId);
+}
+
 /**
  * Esta función muestra las cards de las materias si se encuentra 
  * en la pagina principal del Dashboard
@@ -192,19 +203,17 @@ const renderSubjectsCards = () => {
         `;
     })
 
-    document.getElementById("subject-cards").innerHTML = cardsRender; //Div para las cards
+    $("#subject-cards").html(cardsRender); //Div para las cards
 
-    let subjectATags = document.getElementById('subject-cards').querySelectorAll('a')
+    let subjectATags = $('#subject-cards a');
 
-    subjectATags.forEach(node =>{
-        node.addEventListener('click', event => {
+    subjectATags.click(event => {
             event.preventDefault();
             let subjectId = event.currentTarget.dataset.id;
             localStorage.setItem('subjectToOpen',subjectId)
             
             window.location.href = 'subject.html'
         })
-    })
 }
 
 
@@ -241,19 +250,17 @@ const renderAsideCards = () => {
         `
     })
 
-    document.getElementById("subject-aside").innerHTML = asideRender;
+    $("#subject-aside").html(asideRender);
 
-    let subjectATags = document.getElementById('subject-aside').querySelectorAll('a')
+    let subjectATags = $('#subject-aside a')
 
-    subjectATags.forEach(node =>{
-        node.addEventListener('click', event => {
+    subjectATags.click(event => {
             event.preventDefault();
             let subjectId = event.currentTarget.parentElement.dataset.id;
             localStorage.setItem('subjectToOpen',subjectId)
             
             window.location.href = 'subject.html'
         })
-    })
     
 }
 
@@ -261,47 +268,25 @@ const renderAsideCards = () => {
 const currentDate = new Date(Date.now());
 let language = navigator.language;
 
+const formattedTime = //TODO -- const??
+(currentDate.getHours() > 9 ? currentDate.getHours() : '0'+currentDate.getHours())+":"
++(currentDate.getMinutes() > 9 ? currentDate.getMinutes() : '0'+currentDate.getMinutes())+":"
++(currentDate.getSeconds() > 9 ? currentDate.getSeconds() : '0'+currentDate.getSeconds());
+
 /**
  * Show a weekly Calendar on a div with Id calendar
  */
 document.addEventListener('DOMContentLoaded', function() {
 
-    if(isIndexHTML){
-        
-        const formattedTime = 
-            (currentDate.getHours() > 9 ? currentDate.getHours() : '0'+currentDate.getHours())+":"
-            +(currentDate.getMinutes() > 9 ? currentDate.getMinutes() : '0'+currentDate.getMinutes())+":"
-            +(currentDate.getSeconds() > 9 ? currentDate.getSeconds() : '0'+currentDate.getSeconds());
+    $('#sidebarApps a').click(event=>{
+        event.preventDefault()
+    })
 
-        let calendarEl = document.getElementById('calendar');
-        let calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'timeGridWeek',
-            themeSystem: 'bootstrap',
-            locale: language,
-            allDaySlot: false,
-            headerToolbar: {
-                left: 'prev',
-                center: 'title',
-                right: 'next',
-            },
-            scrollTime: formattedTime,
-            selectable:true,
-            nowIndicator:true,
-            events: [
-                {
-                    title:  'My Event',
-                    startTime:  '14:30:00',
-                    endTime: '18:30:00',
-                    allDay: false,
-                    url: 'http://zoom.us',
-                    daysOfWeek: [ '3' ],
-                    startRecur: '2021-05-01',
-                    endRecur: '2021-05-21',
-                }
-            ]
-        });
-        calendar.render();
+    if(isIndexHTML){
+        indexCalendarRender();
     }
+
+    appCalendarRender();
 });
 
 //LOGOUT
@@ -317,5 +302,65 @@ logout.addEventListener('click', (event)=>{
     .catch(error=>console.log(error.code,error.message))
 })
 
+const indexCalendarRender = () => {
+    let calendarEl = document.getElementById('calendar')
+    let calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        themeSystem: 'bootstrap',
+        locale: language,
+        allDaySlot: false,
+        headerToolbar: {
+            left: 'prev',
+            center: 'title',
+            right: 'next',
+        },
+        scrollTime: formattedTime,
+        selectable:true,
+        nowIndicator:true,
+        events: [
+            {
+                title:  'My Event',
+                startTime:  '14:30:00',
+                endTime: '18:30:00',
+                allDay: false,
+                url: 'http://zoom.us',
+                daysOfWeek: [ '3' ],
+                startRecur: '2021-05-01',
+                endRecur: '2021-05-21',
+            }
+        ]
+    });
+    calendar.render();
+}
 
-//TODO, LISTA DE TAREAS APP.
+const appCalendarRender = () => {
+    let calendarEl = document.getElementById('calendarModalRender')
+    let calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        themeSystem: 'bootstrap',
+        locale: language,
+        allDaySlot: false,
+        headerToolbar: {
+            left: 'prev',
+            center: 'title',
+            right: 'next',
+        },
+        scrollTime: formattedTime,
+        selectable:true,
+        nowIndicator:true,
+        events: [
+            {
+                title:  'My Event',
+                startTime:  '14:30:00',
+                endTime: '18:30:00',
+                allDay: false,
+                url: 'http://zoom.us',
+                daysOfWeek: [ '3' ],
+                startRecur: '2021-05-01',
+                endRecur: '2021-05-21',
+            }
+        ]
+    });
+    calendar.render();
+}
+//TODO, LISTA DE TAREAS APP, CALENDAR APP RESIZE
