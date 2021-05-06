@@ -169,7 +169,7 @@ const setSubjectsToRender = () => {
     }
 }
 
-let subjectId = localStorage.getItem('subjectToOpen') || subjectsList[0].id
+let subjectId = localStorage.getItem('subjectToOpen')
 
 
 /**
@@ -275,6 +275,7 @@ const formattedTime = //TODO -- const??
 
 let appSchedule;
 $("#scheduleModal").on('shown.bs.modal', ()=>appSchedule.updateSize())
+
 
 /**
  * Show a weekly Calendar on a div with Id calendar
