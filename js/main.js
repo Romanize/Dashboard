@@ -1,7 +1,7 @@
 const localSubjectList = JSON.parse(localStorage.getItem("subjectsListStorage"));
 console.log(localSubjectList)
-const isIndexHTML = (location.pathname === "/" || location.pathname === "/index.html")
-const isSubjectHTML = (location.pathname === "/subject.html")
+const isIndexHTML = (location.pathname === "/" || location.pathname.includes('/index.html'))
+const isSubjectHTML = (location.pathname.includes('/subject.html'))
 
 //Listen for auth changes
 auth.onAuthStateChanged(user =>{

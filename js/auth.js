@@ -1,5 +1,5 @@
-const isRegisterHTML = location.href.includes('register.html');
-const isLoginHTML = location.href.includes('login.html');
+const isRegisterHTML = location.pathname.includes('/register.html');
+const isLoginHTML = location.pathname.includes('/login.html');
 
 //Listen for auth changes
 auth.onAuthStateChanged(user =>{
