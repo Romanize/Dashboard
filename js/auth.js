@@ -13,7 +13,6 @@ auth.onAuthStateChanged(user =>{
 })
 
 
-
 // Sign Up
 
 if(isRegisterHTML){
