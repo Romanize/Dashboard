@@ -10,7 +10,6 @@ auth.onAuthStateChanged(user =>{
     if(user){
         setUserUI(user);
         setSubjectsToRender();
-        removeLoader();
     } else{
         localStorage.removeItem("subjectsListStorage")
         localStorage.removeItem("subjectToOpen")
@@ -156,8 +155,8 @@ const setSubjectsToRender = () => {
                 }
             });
             localStorage.setItem("subjectsListStorage",JSON.stringify(subjectsList));
+            if(isIndexHTML){renderSubjectsCards()};
             renderAsideCards();
-            if(isIndexHTML){renderSubjectsCards()}
         })
         .catch((error) => {
             console.log("Error al conseguir el documento:", error.message);
@@ -167,8 +166,8 @@ const setSubjectsToRender = () => {
             let classedSubject = Object.assign(new Subject(),subject);
             subjectsList.push(classedSubject);
         });
+        if(isIndexHTML){renderSubjectsCards()};
         renderAsideCards();
-        if(isIndexHTML){renderSubjectsCards()}
     }
 }
 
@@ -263,7 +262,8 @@ const renderAsideCards = () => {
         // })
         window.location.href = 'subject.html'
     })
-    
+
+    $('#loader').remove()
 }
 
 //Get current date and time
@@ -295,10 +295,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
-
-const removeLoader = ()=>{
-    $('#loader').remove()
-}
 
 //LOGOUT
 
