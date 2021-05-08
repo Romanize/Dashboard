@@ -8,9 +8,9 @@ const isSubjectHTML = (location.pathname.includes('/subject.html'))
 //Listen for auth changes
 auth.onAuthStateChanged(user =>{
     if(user){
-        user.getIdTokenResult().then((idTokenResult)=>console.log(idTokenResult))
         setUserUI(user);
-        setSubjectsToRender()
+        setSubjectsToRender();
+        removeLoader();
     } else{
         localStorage.removeItem("subjectsListStorage")
         localStorage.removeItem("subjectToOpen")
@@ -257,6 +257,10 @@ const renderAsideCards = () => {
         let subjectId = event.currentTarget.parentElement.dataset.id;
         localStorage.setItem('subjectToOpen',subjectId)
         
+        //TODO CHECK IF POSSIBLE
+        // $('#mainScreen').load("/test.html", ()=>{
+        //     window.history.pushState('data','hello','/test.html')
+        // })
         window.location.href = 'subject.html'
     })
     
@@ -292,6 +296,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+const removeLoader = ()=>{
+    $('#loader').remove()
+}
+
 //LOGOUT
 
 $('#logout').click(event=>{
@@ -302,6 +310,15 @@ $('#logout').click(event=>{
     })
     .catch(error=>console.log(error.code,error.message))
 })
+
+// $('#testing').click(event=>{
+//     event.preventDefault();
+//     $('#mainScreen').load("/test.html", ()=>{
+//         location.pathname = 'subject.html'
+//     })
+// })
+
+
 
 const indexCalendarRender = () => {
     let calendarEl = document.getElementById('calendar')
@@ -370,4 +387,6 @@ const appScheduleRender = () => {
     });
     appSchedule.render();
 }
+
+
 //TODO, LISTA DE TAREAS APP, SIDEBAR DESPLEGABLE,QUERY DE FIREBASE SEGUN FECHA DE CAMBIOS0

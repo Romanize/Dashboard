@@ -13,7 +13,7 @@
         href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
-    <!-- Linking CSS, Bootstrap, Font Awesome / FullCalendar-->
+    <!-- Linking CSS, Bootstrap, Font Awesome / FullCalendar -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/fullcalendar/main.css">
 
@@ -24,66 +24,67 @@
 
 <body>
 
-    <div class="container-fluid"></div>
-     <div class="row">
-        <!-- Sidebar -->
-        <aside class="bg-light col sidebar vh-100 d-none d-xl-inline">
-                        
-            <!-- Brand -->
-            <div class="sidebar-brand">
-                <a href="index.html">
-                    DIDACTIC ZONE
-                </a>
-            </div>
+    <div class="container-fluid">
+        <div class="row">
 
-            <ul class="sidebar-menu accordion accordion-flush">
-                <li class="sidebar-header">DASHBOARD</li>
-                <li class="accordion-item sidebar-item">
+            <!-- Sidebar -->
+            <aside class="bg-light col sidebar vh-100 d-none d-xl-inline">
+                            
+                <!-- Brand -->
+                <div class="sidebar-brand">
                     <a href="index.html">
-                        <i class="fas fa-columns"></i>
-                        <span>DASHBOARD</span>
+                        DIDACTIC ZONE
                     </a>
-                </li>
-                <li class="sidebar-header">SUBJECTS</li>
-                <div id="subject-aside">
                 </div>
-                <li class="sidebar-header" id="sidebarApps">APPS</li>
-                <li class="accordion-item sidebar-item">
-                    <a href="#" id="messages" data-toggle="modal" data-target="#messagesModal">
-                        <i class="fas fa-envelope"></i>
-                        <span>MESSAGES</span>
-                    </a>
-                </li>
-                <li class="accordion-item sidebar-item">
-                    <a href="#" id="schedule" data-toggle="modal" data-target="#calendarModal">
-                        <i class="fas fa-clock"></i>
-                        <span>SCHEDULE</span>
-                    </a>
-                </li>
-                <li class="accordion-item sidebar-item">
-                    <a href="#" id="toDoList" data-toggle="modal" data-target="#toDoModal">
-                        <i class="fas fa-list"></i>
-                        <span>TO DO LIST</span>
-                    </a>
-                </li>
-                <li class="sidebar-header">SETTINGS</li>
-                <li class="accordion-item sidebar-item">
-                    <a href="#">
-                        <i class="fas fa-cogs"></i>
-                        <span>SETTINGS</span>
-                    </a>
-                </li>
-                <li class="accordion-item sidebar-item">
-                    <a href="">
-                        <i class="fas fa-moon"></i>
-                        <span>DARK MODE</span>
-                    </a>
-                </li>
-            </ul>
-        </aside>
-        
-        <!-- Content -->
-        <div class="container-fluid col">
+
+                <ul class="sidebar-menu accordion accordion-flush">
+                    <li class="sidebar-header">DASHBOARD</li>
+                    <li class="accordion-item sidebar-item">
+                        <a href="index.html">
+                            <i class="fas fa-columns"></i>
+                            <span>DASHBOARD</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-header">SUBJECTS</li>
+                    <div id="subject-aside">
+                    </div>
+                    <li class="sidebar-header" id="sidebarApps">APPS</li>
+                    <li class="accordion-item sidebar-item">
+                        <a href="#" id="messages" data-bs-toggle="modal" data-bs-target="#messagesModal">
+                            <i class="fas fa-envelope"></i>
+                            <span>MESSAGES</span>
+                        </a>
+                    </li>
+                    <li class="accordion-item sidebar-item">
+                        <a href="#scheduleModal" id="schedule" data-bs-toggle="modal">
+                            <i class="fas fa-clock"></i>
+                            <span>SCHEDULE</span>
+                        </a>
+                    </li>
+                    <li class="accordion-item sidebar-item">
+                        <a href="#" id="toDoList" data-bs-toggle="modal" data-bs-target="#toDoModal">
+                            <i class="fas fa-list"></i>
+                            <span>TO DO LIST</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-header">SETTINGS</li>
+                    <li class="accordion-item sidebar-item">
+                        <a href="">
+                            <i class="fas fa-cogs"></i>
+                            <span>SETTINGS</span>
+                        </a>
+                    </li>
+                    <li class="accordion-item sidebar-item">
+                        <a href="" id="testing">
+                            <i class="fas fa-moon"></i>
+                            <span>DARK MODE</span>
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+            
+            <!-- Content -->
+            <div class="container-fluid col">
                 <!-- Navbar -->
                 <div class="row sticky-top">
                     <nav class="navbar navbar-expand navbar-light bg-light shadow mb-3 px-3 w-100">
@@ -239,8 +240,6 @@
                                     <li class="nav-item dropdown nav-dropdown-toggler">
                                         <a class="nav-link dropdowm-toggle" id="user-dropdown" role="button" data-bs-toggle="dropdown"
                                         aria-expanded="false" href="#">
-                                            <img alt="User Picture" width="35px" height="35px" id="user-image">
-                                            <span id="user-name" class="d-none d-md-inline fw-bold"></span>
                                         </a>
 
                                         <!-- User Dropdown -->
@@ -285,11 +284,41 @@
                     </nav>
                 </div>
                 <!-- Navbar END -->
-
+                
                 <!-- main content -->
-                <div id="pruebacontenido">R</div>
+                <div id="mainScreen">
+                    <div class="row" id="pruebacontenido">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+  
+    <!-- Modal -->
+    <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-fullscreen-sm-down modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+            <h2 class="modal-title" id="exampleModalLabel">Your Schedule</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="calendarModalRender">
+            </div>
+            <div class="modal-footer bg-light">
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Loader -->
+    <div id="loader" class="bg-light d-flex justify-content-center align-items-center">
+        <div class="spinner-grow text-primary" role="status">
+        </div>
+        <div class="spinner-grow text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-primary" role="status">
+        </div>
     </div>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -297,7 +326,6 @@
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
         https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-firestore.js"></script>
 
@@ -317,7 +345,6 @@
         firebase.initializeApp(firebaseConfig);
 
         // Auth and Database References
-        const analytics = firebase.analytics();
         const auth = firebase.auth();
         const db = firebase.firestore();
     </script>
@@ -328,7 +355,7 @@
 
     <!-- Full Calendar Script -->
     <script src='js/vendors/fullCalendar.js'></script>
-    <script src='js/vendors/locales/es.js'></script>  
+    <script src='js/vendors/locales/es.js'></script> 
     
 </body>
 

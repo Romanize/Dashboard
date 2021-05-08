@@ -75,7 +75,7 @@
                         </a>
                     </li>
                     <li class="accordion-item sidebar-item">
-                        <a href="">
+                        <a href="" id="testing">
                             <i class="fas fa-moon"></i>
                             <span>DARK MODE</span>
                         </a>
@@ -286,58 +286,58 @@
                 <!-- Navbar END -->
                 
                 <!-- main content -->
-                <div class="row">
-                <!-- content cards -->
-                    <main class="row row-cols-1 row-cols-md-2 mb-3 row-cols-lg-3 gx-3 gy-4 px-2 d-flex align-items-stretch justify-content-center m-0"
-                        id="subject-cards">
-                    </main>
-                </div>
-                <!-- bottom section -->
-                <div class="row">
-                    <div class="row px-2 m-0 gx-5 d-flex align-items-stretch justify-content-center">
-                        <!-- recent table -->
-                        <section class="col-12 col-xl-7">
-                            <div><h2>Recent Activities</h2></div>
-                            <div class="table-responsive" id="recentTable">
-                                <table class="table table-hover">
-                                    <thead class="bg-primary text-white">
-                                    <tr>
-                                        <th scope="col">Student</th>
-                                        <th scope="col">Subject</th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Activity</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="align-middle">
-                                        <th scope="row"><img class="rounded-circle me-2" img="" src="https://eshendetesia.com/images/user-profile.png" alt="User Picture" width="35px" height="35px"><div>Jason Doe</div></th>
-                                        <td>PRACTITIONER B1</td>
-                                        <td>20/04/2020</td>
-                                        <td>Bitácora</td>
-                                    </tr>
-                                    <tr class="align-middle">
-                                        <th scope="row"><img class="rounded-circle me-2" img="" src="https://eshendetesia.com/images/user-profile.png" alt="User Picture" width="35px" height="35px">Jacob Thornton</th>
-                                        <td>MASTER D5</td>
-                                        <td>14/04/2020</td>
-                                        <td>Certificación</td>
-                                    </tr>
-                                    <tr class="align-middle">
-                                        <th scope="row"><img class="rounded-circle me-2" img="" src="https://eshendetesia.com/images/user-profile.png" alt="User Picture" width="35px" height="35px">Larry Therion</th>
-                                        <td>MASTER C3</td>
-                                        <td>21/03/2020</td>
-                                        <td>Práctica</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </section>
-                        <!-- calendar -->
-                        <section class="col-12 col-xl-5" >
-                            <div>
-                                <h2 class="invisible">spacer</h2>
-                            </div>
-                            <div id="calendar"></div>
-                        </section>
+                <div id="mainScreen">
+                    <div class="row">
+                    <!-- content cards -->
+                        <main class="row row-cols-1 row-cols-md-2 mb-3 row-cols-lg-3 gx-3 gy-4 px-2 d-flex align-items-stretch justify-content-center m-0"
+                            id="subject-cards">
+                        </main>
+                    </div>
+                    <!-- bottom section -->
+                    <div class="row m-0 gx-3 d-flex align-items-stretch justify-content-center">
+                            <!-- recent table -->
+                            <section class="col-12 col-xl-7">
+                                <div><h2>Recent Activities</h2></div>
+                                <div class="table-responsive" id="recentTable">
+                                    <table class="table table-hover">
+                                        <thead class="bg-primary text-white">
+                                        <tr>
+                                            <th scope="col">Student</th>
+                                            <th scope="col">Subject</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Activity</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="align-middle">
+                                            <th scope="row"><img class="rounded-circle me-2" img="" src="https://eshendetesia.com/images/user-profile.png" alt="User Picture" width="35px" height="35px"><div>Jason Doe</div></th>
+                                            <td>PRACTITIONER B1</td>
+                                            <td>20/04/2020</td>
+                                            <td>Bitácora</td>
+                                        </tr>
+                                        <tr class="align-middle">
+                                            <th scope="row"><img class="rounded-circle me-2" img="" src="https://eshendetesia.com/images/user-profile.png" alt="User Picture" width="35px" height="35px">Jacob Thornton</th>
+                                            <td>MASTER D5</td>
+                                            <td>14/04/2020</td>
+                                            <td>Certificación</td>
+                                        </tr>
+                                        <tr class="align-middle">
+                                            <th scope="row"><img class="rounded-circle me-2" img="" src="https://eshendetesia.com/images/user-profile.png" alt="User Picture" width="35px" height="35px">Larry Therion</th>
+                                            <td>MASTER C3</td>
+                                            <td>21/03/2020</td>
+                                            <td>Práctica</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+                            <!-- calendar -->
+                            <section class="col-12 col-xl-5" >
+                                <div>
+                                    <h2 class="invisible">spacer</h2>
+                                </div>
+                                <div id="calendar"></div>
+                            </section>
                     </div>
                 </div>
             </div>
@@ -357,6 +357,17 @@
             <div class="modal-footer bg-light">
             </div>
         </div>
+        </div>
+    </div>
+
+    <!-- Loader -->
+    <div id="loader" class="bg-light d-flex justify-content-center align-items-center">
+        <div class="spinner-grow text-primary" role="status">
+        </div>
+        <div class="spinner-grow text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-primary" role="status">
         </div>
     </div>
 
