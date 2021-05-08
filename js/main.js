@@ -1,11 +1,14 @@
 const localSubjectList = JSON.parse(localStorage.getItem("subjectsListStorage"));
-console.log(localSubjectList)
-const isIndexHTML = (location.pathname === "/" || location.pathname.includes('index.html') || location.pathname === "/Dashboard/")
+const isIndexHTML = (
+    location.pathname === "/" || 
+    location.pathname.includes('index.html') || 
+    location.pathname === "/Dashboard/")
 const isSubjectHTML = (location.pathname.includes('/subject.html'))
 
 //Listen for auth changes
 auth.onAuthStateChanged(user =>{
     if(user){
+        user.getIdTokenResult().then((idTokenResult)=>console.log(idTokenResult))
         setUserUI(user);
         setSubjectsToRender()
     } else{
@@ -15,17 +18,15 @@ auth.onAuthStateChanged(user =>{
     }
 })
 
-
 /**
  * Get some info from user to show in DOM
  * @param {object containing info of logged user} user 
  */
 const setUserUI = (user) =>{
-
-    const userImage = document.getElementById('user-image')
-    const userName = document.getElementById('user-name');
-    userName.innerHTML = user.displayName
-    userImage.setAttribute('src',user.photoURL);
+    $('#user-dropdown').append(`
+    <img src="${user.photoURL}" alt="User Picture" width="35px" height="35px">
+    <span class="d-none d-md-inline fw-bold">${user.displayName}</span>
+    `)
 }
 
 
@@ -44,7 +45,9 @@ const setUserUI = (user) =>{
             timeEnd : timeEnd,
             dayStart : dayStart,
             dayEnd : dayEnd,
-        }
+        }//,
+        // this.teachers = teachers,
+        // this.students = students,
     }
     /**
      * split dates with dd/mm/yyyy format.
@@ -163,19 +166,18 @@ const setSubjectsToRender = () => {
         localSubjectList.forEach((subject) => {
             let classedSubject = Object.assign(new Subject(),subject);
             subjectsList.push(classedSubject);
-            renderAsideCards();
-            if(isIndexHTML){renderSubjectsCards()}
-        })
+        });
+        renderAsideCards();
+        if(isIndexHTML){renderSubjectsCards()}
     }
 }
-
-let subjectId = localStorage.getItem('subjectToOpen')
 
 
 /**
  * Para renderizar la información en el subject.html
  */
 if(isSubjectHTML){
+    let subjectId = localStorage.getItem('subjectToOpen')
     $('#pruebacontenido').html(subjectId);
 }
 
@@ -205,15 +207,13 @@ const renderSubjectsCards = () => {
 
     $("#subject-cards").html(cardsRender); //Div para las cards
 
-    let subjectATags = $('#subject-cards a');
-
-    subjectATags.click(event => {
-            event.preventDefault();
-            let subjectId = event.currentTarget.dataset.id;
-            localStorage.setItem('subjectToOpen',subjectId)
-            
-            window.location.href = 'subject.html'
-        })
+    $('#subject-cards a').click(event => {
+        event.preventDefault();
+        let subjectId = event.currentTarget.dataset.id;
+        localStorage.setItem('subjectToOpen',subjectId)
+        
+        window.location.href = 'subject.html'
+    })
 }
 
 
@@ -252,15 +252,13 @@ const renderAsideCards = () => {
 
     $("#subject-aside").html(asideRender);
 
-    let subjectATags = $('#subject-aside a')
-
-    subjectATags.click(event => {
-            event.preventDefault();
-            let subjectId = event.currentTarget.parentElement.dataset.id;
-            localStorage.setItem('subjectToOpen',subjectId)
-            
-            window.location.href = 'subject.html'
-        })
+    $('#subject-aside a').click(event => {
+        event.preventDefault();
+        let subjectId = event.currentTarget.parentElement.dataset.id;
+        localStorage.setItem('subjectToOpen',subjectId)
+        
+        window.location.href = 'subject.html'
+    })
     
 }
 
@@ -268,7 +266,7 @@ const renderAsideCards = () => {
 const currentDate = new Date(Date.now());
 let language = navigator.language;
 
-const formattedTime = //TODO -- const??
+const formattedTime = 
 (currentDate.getHours() > 9 ? currentDate.getHours() : '0'+currentDate.getHours())+":"
 +(currentDate.getMinutes() > 9 ? currentDate.getMinutes() : '0'+currentDate.getMinutes())+":"
 +(currentDate.getSeconds() > 9 ? currentDate.getSeconds() : '0'+currentDate.getSeconds());
@@ -296,9 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 //LOGOUT
 
-const logout = document.getElementById('logout');
-
-logout.addEventListener('click', (event)=>{
+$('#logout').click(event=>{
     event.preventDefault();
     auth.signOut()
     .then(()=>{
@@ -343,6 +339,7 @@ const appScheduleRender = () => {
     appSchedule = new FullCalendar.Calendar(scheduleEl, {
         initialView: 'dayGridMonth',
         themeSystem: 'bootstrap',
+        navLinks: true,
         locale: language,
         allDaySlot: false,
         contentHeight: "100%",
@@ -350,6 +347,10 @@ const appScheduleRender = () => {
             left: 'prev',
             center: 'title',
             right: 'next',
+        },
+        footerToolbar: {
+            left: 'dayGridMonth,timeGridWeek',
+            right: 'listWeek'
         },
         scrollTime: formattedTime,
         selectable:true,
@@ -369,4 +370,4 @@ const appScheduleRender = () => {
     });
     appSchedule.render();
 }
-//TODO, LISTA DE TAREAS APP, CALENDAR APP RESIZE
+//TODO, LISTA DE TAREAS APP, SIDEBAR DESPLEGABLE,QUERY DE FIREBASE SEGUN FECHA DE CAMBIOS0

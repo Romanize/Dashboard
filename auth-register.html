@@ -15,8 +15,8 @@
     <!-- Linking CSS, Bootstrap included -->
     <link rel="stylesheet" href="css/main.css">
 
-      <!-- Linking auth js -->
-      <script src="js/auth.js" defer></script>
+    <!-- Linking auth js -->
+    <script src="js/auth.js" defer></script>
 
 </head>
 
@@ -87,7 +87,7 @@
                         <div class="form-group col-6">
                           <label>Country</label>
                           <!-- API DE PAISES -->
-                          <select class="form-control selectric">
+                          <select class="form-control selectric" name="country">
                             <option>Argentina</option>
                             <option>Peru</option>
                             <option>Colombia</option>
@@ -96,8 +96,8 @@
                           </select>
                         </div>
                         <div class="form-group col-6">
-                          <label>Province</label>
-                          <select class="form-control selectric">
+                          <label>Province/State</label>
+                          <select class="form-control selectric" name="state">
                             <option>Buenos Aires</option>
                             <option>Otros</option>
                           </select>
@@ -106,11 +106,11 @@
                       <div class="row mb-3">
                         <div class="form-group col-6">
                           <label>City</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" name="city">
                         </div>
                         <div class="form-group col-6">
-                          <label>Postal Code</label>
-                          <input type="text" class="form-control">
+                          <label>Postal ZIP Code</label>
+                          <input type="text" class="form-control" name="zip">
                         </div>
                       </div>
     
@@ -168,7 +168,8 @@
         const db = firebase.firestore();
     </script>
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS & jQuery-->
+    <script src="js/vendors/jquery-3.6.0.js"></script>
     <script src="js/vendors/bootstrap.bundle.js"></script>
 
 </body>
