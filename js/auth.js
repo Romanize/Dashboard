@@ -5,8 +5,9 @@ const isForgotHTML = location.pathname.includes('forgot-password.html');
 //Listen for auth changes
 auth.onAuthStateChanged(user =>{
     if(user){
-        if(isLoginHTML){location.href = 'index.html'}
+        if(isLoginHTML || isForgotHTML || isRegisterHTML){location.href = 'index.html'}
     } else{
+        localStorage.removeItem("subjectsListStorage")
         localStorage.removeItem("subjectToOpen")
     }
 })
