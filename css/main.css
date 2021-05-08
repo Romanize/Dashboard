@@ -12129,7 +12129,8 @@ body {
   padding: 0;
   position: sticky;
   top: 0;
-  overflow-y: auto; }
+  overflow-y: auto;
+  z-index: 9999; }
 
 .sidebar-brand {
   height: 58.9px;
@@ -12159,7 +12160,7 @@ body {
 .sidebar-item {
   text-decoration: none; }
 
-.sidebar-item a:hover {
+.sidebar-item a:hover, .sidebar-item button:hover {
   background-color: lightgrey; }
 
 .sidebar-item i {
