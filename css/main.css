@@ -12211,6 +12211,67 @@ body {
 #loader > * {
   margin: 0 .5rem; }
 
+.messagesContent {
+  height: 70vh;
+  border-top: whitesmoke 1px solid;
+  padding-top: 1rem; }
+
+.messagePreview {
+  min-width: 70%;
+  padding: .5rem 0; }
+
+#chatContent {
+  overflow-y: auto;
+  background-color: whitesmoke; }
+
+#recentMessages {
+  overflow-x: hidden;
+  overflow-y: auto; }
+
+#recentMessages a:hover {
+  background-color: whitesmoke; }
+
+.chatBoxHeader {
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: lightgrey 0px 3px 3px;
+  z-index: 50; }
+
+.send, .receive {
+  align-self: flex-end;
+  color: white;
+  background-color: #0d6efd;
+  margin: .5rem;
+  font-size: .9rem;
+  padding: .5rem;
+  border-radius: .5rem;
+  max-width: 70%;
+  position: relative; }
+
+.receive {
+  align-self: start;
+  color: black;
+  background-color: white; }
+
+.send::after {
+  content: '';
+  height: 0;
+  width: 0;
+  position: absolute;
+  bottom: .5rem;
+  right: -1rem;
+  border: .5rem  transparent solid;
+  border-left: 0.5rem #0d6efd solid; }
+
+.receive::before {
+  content: '';
+  height: 0;
+  width: 0;
+  position: absolute;
+  bottom: .5rem;
+  left: -1rem;
+  border: .5rem  transparent solid;
+  border-right: .5rem  white solid; }
+
 .nav-dropdown-toggler {
   position: static; }
 
@@ -12332,7 +12393,7 @@ body {
 
 #recentTable tbody th {
   display: flex;
-  min-height: 100%; }
+  align-content: center; }
 
 #recentTable img {
   margin: auto 0; }
@@ -12341,6 +12402,9 @@ body {
 .fc-timegrid-now-indicator-line):not(
 .fc-timegrid-now-indicator-arrow) {
   border-color: rgba(128, 128, 128, 0.2); }
+
+#scheduleModalRender td {
+  border-style: none; }
 
 .modal-body {
   min-height: 70vh; }
@@ -12469,3 +12533,7 @@ body {
   align-items: center;
   background-color: transparent;
   padding-top: 16px; }
+
+#subjectCards > * {
+  margin-top: 0;
+  margin-bottom: var(--bs-gutter-y); }

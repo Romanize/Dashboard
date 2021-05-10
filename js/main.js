@@ -155,8 +155,8 @@ const setSubjectsToRender = () => {
                 }
             });
             localStorage.setItem("subjectsListStorage",JSON.stringify(subjectsList));
-            if(isIndexHTML){renderSubjectsCards()};
-            renderAsideCards();
+            if(isIndexHTML){subjectsCardsRender()};
+            asideCardsRender();
         })
         .catch((error) => {
             console.log("Error al conseguir el documento:", error.message);
@@ -166,8 +166,8 @@ const setSubjectsToRender = () => {
             let classedSubject = Object.assign(new Subject(),subject);
             subjectsList.push(classedSubject);
         });
-        if(isIndexHTML){renderSubjectsCards()};
-        renderAsideCards();
+        if(isIndexHTML){subjectsCardsRender()};
+        asideCardsRender();
     }
 }
 
@@ -184,7 +184,7 @@ if(isSubjectHTML){
  * Esta función muestra las cards de las materias si se encuentra 
  * en la pagina principal del Dashboard
  */
-const renderSubjectsCards = () => { 
+const subjectsCardsRender = () => { 
 
     let cardsRender = '';
 
@@ -192,7 +192,7 @@ const renderSubjectsCards = () => {
 
         cardsRender = cardsRender + `
         <div class="col">
-            <a href="subject.html" class="card subject-card border-left-warning h-100" data-id="${subject.code}">
+            <a href="subject.html" class="card subject-card border-left-${subject.statusColor} h-100" data-id="${subject.code}">
                 <div class="card-body d-flex flex-column">
                     <div class="small subject-card-status bg-${subject.statusColor} px-2 py-1">${subject.status}</div>
                     <h5 class="card-title fw-bold">${subject.level +" "+subject.code+" - "+ subject.branch}</h5>
@@ -204,9 +204,9 @@ const renderSubjectsCards = () => {
         `;
     })
 
-    $("#subject-cards").html(cardsRender); //Div para las cards
+    $("#subjectCards").append(cardsRender); //Div para las cards
 
-    $('#subject-cards a').click(event => {
+    $('#subjectCards a').click(event => {
         event.preventDefault();
         let subjectId = event.currentTarget.dataset.id;
         localStorage.setItem('subjectToOpen',subjectId)
@@ -219,7 +219,7 @@ const renderSubjectsCards = () => {
 /**
  * Shows aside Subjects on any page
  */
-const renderAsideCards = () => {
+const asideCardsRender = () => {
 
     let asideRender = '';
 
@@ -256,15 +256,18 @@ const renderAsideCards = () => {
         let subjectId = event.currentTarget.parentElement.dataset.id;
         localStorage.setItem('subjectToOpen',subjectId)
         
-        //TODO CHECK IF POSSIBLE
-        // $('#mainScreen').load("/test.html", ()=>{
-        //     window.history.pushState('data','hello','/test.html')
-        // })
+        // $('#mainScreen').load('test.html')
+        // window.history.pushState({id: subjectId},'','subject.html')
+
         window.location.href = 'subject.html'
     })
 
     $('#loader').remove()
 }
+
+// window.onpopstate(event =>{
+//     event.state
+// })
 
 //Get current date and time
 const currentDate = new Date(Date.now());
@@ -307,15 +310,6 @@ $('#logout').click(event=>{
     .catch(error=>console.log(error.code,error.message))
 })
 
-// $('#testing').click(event=>{
-//     event.preventDefault();
-//     $('#mainScreen').load("/test.html", ()=>{
-//         location.pathname = 'subject.html'
-//     })
-// })
-
-
-
 const indexCalendarRender = () => {
     let calendarEl = document.getElementById('calendar')
     let calendar = new FullCalendar.Calendar(calendarEl, {
@@ -348,7 +342,7 @@ const indexCalendarRender = () => {
 }
 
 const appScheduleRender = () => {
-    let scheduleEl = document.getElementById('calendarModalRender')
+    let scheduleEl = document.getElementById('scheduleModalRender')
     appSchedule = new FullCalendar.Calendar(scheduleEl, {
         initialView: 'dayGridMonth',
         themeSystem: 'bootstrap',
