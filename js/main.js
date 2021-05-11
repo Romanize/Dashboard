@@ -206,7 +206,7 @@ const subjectsCardsRender = () => {
 
     $("#subjectCards").append(cardsRender); //Div para las cards
 
-    $('#subjectCards a').click(event => {
+    $('#subjectCards a').on('click',event => {
         event.preventDefault();
         let subjectId = event.currentTarget.dataset.id;
         localStorage.setItem('subjectToOpen',subjectId)
@@ -251,7 +251,7 @@ const asideCardsRender = () => {
 
     $("#subject-aside").html(asideRender);
 
-    $('#subject-aside a').click(event => {
+    $('#subject-aside a').on('click',event => {
         event.preventDefault();
         let subjectId = event.currentTarget.parentElement.dataset.id;
         localStorage.setItem('subjectToOpen',subjectId)
@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     appScheduleRender();
 
-    $('#sidebarApps a').click(event=>{
+    $('#sidebarApps a').on('click',event=>{
         event.preventDefault()
     })
 
@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 //LOGOUT
 
-$('#logout').click(event=>{
+$('#logout').on('click',event=>{
     event.preventDefault();
     auth.signOut()
     .then(()=>{
