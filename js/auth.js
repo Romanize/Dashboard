@@ -5,7 +5,7 @@ const isForgotHTML = location.pathname.includes('forgot-password.html');
 //Listen for auth changes
 auth.onAuthStateChanged(user =>{
     if(user){
-        if(isLoginHTML || isForgotHTML || isRegisterHTML){location.href = 'index.html'}
+        if(isLoginHTML || isForgotHTML){location.href = 'index.html'}
     } else{
         localStorage.removeItem("subjectsListStorage")
         localStorage.removeItem("subjectToOpen")
@@ -16,12 +16,13 @@ auth.onAuthStateChanged(user =>{
 // Sign Up
 
 if(isRegisterHTML){
-    $('#registerForm').submit(event => {
+    $('#registerForm').on('submit',event => {
         event.preventDefault();
 
         //Get User Info
         const firstName = registerForm['first_name'].value;
         const lastName = registerForm['last_name'].value;
+        const email = registerForm['email'].value;
         const password = registerForm['password'].value;
         const password2 = registerForm['password2'].value;
 
@@ -56,7 +57,7 @@ if(isRegisterHTML){
 
 //Login
 if(isLoginHTML){
-    $('#loginForm').submit(event=>{
+    $('#loginForm').on('submit',event=>{
         event.preventDefault()
 
         //Get User Info
@@ -84,7 +85,7 @@ if(isLoginHTML){
 }
 
 if(isForgotHTML){
-    $('#forgotForm').submit(event=>{
+    $('#forgotForm').on('submit',event=>{
         event.preventDefault()
 
         //Get User Info
