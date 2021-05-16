@@ -2,6 +2,11 @@ const isRegisterHTML = location.pathname.includes('register.html');
 const isLoginHTML = location.pathname.includes('login.html');
 const isForgotHTML = location.pathname.includes('forgot-password.html');
 
+const capitalize = (string) => {
+    if (typeof string !== 'string') return ''
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
+
 //Listen for auth changes
 auth.onAuthStateChanged(user =>{
     if(user){
@@ -20,11 +25,17 @@ if(isRegisterHTML){
         event.preventDefault();
 
         //Get User Info
-        const firstName = registerForm['first_name'].value;
-        const lastName = registerForm['last_name'].value;
+        const firstName = capitalize(registerForm['first_name'].value);
+        const lastName = capitalize(registerForm['last_name'].value);
         const email = registerForm['email'].value;
         const password = registerForm['password'].value;
         const password2 = registerForm['password2'].value;
+        const isAgreeChecked = registerForm['agree'].checked;
+
+        if(!isAgreeChecked){
+            let termsError = new Error('No aceptó terminos y condiciones')
+            return console.error(termsError)
+        }
 
         if(password === password2){
             auth.createUserWithEmailAndPassword(email,password)
@@ -35,8 +46,12 @@ if(isRegisterHTML){
                         email: registerForm['email'].value,
                         phoneNumber: registerForm['phone'].value,
                         address: {
-                            country: 'Argentina',
-                            city: 'Buenos Aires'
+                            country: registerForm['country'].value,
+                            state: registerForm['state'].value,
+                            city: capitalize(registerForm['city'].value), //check if capitalize is needed after API
+                            street: capitalize(registerForm['street'].value),
+                            number: registerForm['number'].value,
+                            zipCode: registerForm['zipCode'].value
                         },
                         displayName: `${firstName} ${lastName}`,
                         photoURL: 'https://eshendetesia.com/images/user-profile.png'
@@ -100,3 +115,4 @@ if(isForgotHTML){
     })
 }
 
+//TODO Terms and Coditions Modal, Country API, Validaciones de registro (campos number??)

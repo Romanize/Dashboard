@@ -1,31 +1,61 @@
+//Read LocalStorage
 const localSubjectList = JSON.parse(localStorage.getItem("subjectsListStorage"));
+
+//Define loading page
 const isIndexHTML = (
     location.pathname === "/" || 
     location.pathname.includes('index.html') || 
     location.pathname === "/Dashboard/")
 const isSubjectHTML = (location.pathname.includes('/subject.html'))
+const isProfileHTML = (location.pathname.includes('/profile.html'))
+
+//Calendar app variable
+let appSchedule;
+let currentUser;
 
 //Listen for auth changes
 auth.onAuthStateChanged(user =>{
     if(user){
         setUserUI(user);
-        setSubjectsToRender();
+        getSubjectsFromFirebase();
+        if(isProfileHTML){userDataRender(user.uid)}
     } else{
-        localStorage.removeItem("subjectsListStorage")
-        localStorage.removeItem("subjectToOpen")
+        localStorage.clear()
+        sessionStorage.clear()
         window.location.href = 'auth-login.html'
     }
 })
 
 /**
  * Get some info from user to show in DOM
- * @param {object containing info of logged user} user 
+ * @param {object} user object containing info of logged user
  */
 const setUserUI = (user) =>{
     $('#user-dropdown').append(`
     <img src="${user.photoURL}" alt="User Picture" width="35px" height="35px">
     <span class="d-none d-md-inline fw-bold">${user.displayName}</span>
     `)
+
+    //LOGOUT
+    $('#logout').on('click',event=>{
+        event.preventDefault();
+        auth.signOut()
+        .then(()=>{
+            window.location.href = 'auth-login.html'
+        })
+        .catch(error=>console.log(error.code,error.message))
+    })
+
+    //Calendar Modal Fix
+    $("#scheduleModal").on('shown.bs.modal', ()=>appSchedule.updateSize())
+
+    //Apps
+    $('#sidebarApps a').on('click',event=>{
+        event.preventDefault()
+    })
+
+    appScheduleRender();
+
 }
 
 
@@ -132,12 +162,11 @@ const subjectConverter = {
 
 let subjectsList = [];
 
-const setSubjectsToRender = () => {
+const getSubjectsFromFirebase = () => {
     if (!localSubjectList){
         db.collection("courses") //TODO Cambiar coleccion y condicion, querys y lecturas
         .withConverter(subjectConverter)
-        .get()
-        .then((snapshot) => {
+        .get().then((snapshot) => {
             snapshot.docs.forEach((doc) => {
             if (doc.exists) {
                 subjectsList.push(doc.data());
@@ -154,9 +183,9 @@ const setSubjectsToRender = () => {
                     return 0
                 }
             });
+            if(isIndexHTML){subjectsCardsRender()}
+            asideCardsRender()
             localStorage.setItem("subjectsListStorage",JSON.stringify(subjectsList));
-            if(isIndexHTML){subjectsCardsRender()};
-            asideCardsRender();
         })
         .catch((error) => {
             console.log("Error al conseguir el documento:", error.message);
@@ -166,55 +195,10 @@ const setSubjectsToRender = () => {
             let classedSubject = Object.assign(new Subject(),subject);
             subjectsList.push(classedSubject);
         });
-        if(isIndexHTML){subjectsCardsRender()};
-        asideCardsRender();
+        if(isIndexHTML){subjectsCardsRender()}
+        asideCardsRender()
     }
 }
-
-
-/**
- * Para renderizar la información en el subject.html
- */
-if(isSubjectHTML){
-    let subjectId = localStorage.getItem('subjectToOpen')
-    $('#pruebacontenido').html(subjectId);
-}
-
-/**
- * Esta función muestra las cards de las materias si se encuentra 
- * en la pagina principal del Dashboard
- */
-const subjectsCardsRender = () => { 
-
-    let cardsRender = '';
-
-    subjectsList.forEach(subject =>{
-
-        cardsRender = cardsRender + `
-        <div class="col">
-            <a href="subject.html" class="card subject-card border-left-${subject.statusColor} h-100" data-id="${subject.code}">
-                <div class="card-body d-flex flex-column">
-                    <div class="small subject-card-status bg-${subject.statusColor} px-2 py-1">${subject.status}</div>
-                    <h5 class="card-title fw-bold">${subject.level +" "+subject.code+" - "+ subject.branch}</h5>
-                    <p class="small text-end blockquote-footer flex-grow-1">${subject.schedule.weekDay + " " + subject.schedule.timeStart
-                + " a " + subject.schedule.timeEnd}</p>
-                </div>
-            </a>
-        </div>
-        `;
-    })
-
-    $("#subjectCards").append(cardsRender); //Div para las cards
-
-    $('#subjectCards a').on('click',event => {
-        event.preventDefault();
-        let subjectId = event.currentTarget.dataset.id;
-        localStorage.setItem('subjectToOpen',subjectId)
-        
-        window.location.href = 'subject.html'
-    })
-}
-
 
 /**
  * Shows aside Subjects on any page
@@ -226,12 +210,12 @@ const asideCardsRender = () => {
     subjectsList.forEach(subject =>{
         asideRender = asideRender + `
         <li class="accordion-item sidebar-item">
-            <div class="accordion-header" id="flush-heading${subject.code}">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${subject.code}" aria-expanded="false" aria-controls="flush-collapse${subject.code}">
+            <div class="accordion-header">
+                <button id="flush-button-${subject.code}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${subject.code}" aria-expanded="false" aria-controls="flush-collapse${subject.code}">
                 ${subject.level +" "+subject.code}
                 </button>
             </div>
-            <div id="flush-collapse${subject.code}" data-id="${subject.code}" class="accordion-collapse collapse" aria-labelledby="flush-heading${subject.code}" data-bs-parent="#subject-aside" >
+            <div id="flush-collapse${subject.code}" data-id="${subject.code}" class="accordion-collapse collapse" aria-labelledby="flush-heading${subject.code}" data-bs-parent="#subject-aside">
                 <a href="subject.html">
                     <i class="fas fa-user-friends"></i>
                     <span>ALUMNOS</span>
@@ -246,7 +230,7 @@ const asideCardsRender = () => {
                 </a>
             </div>
         </li>
-        `
+        `;
     })
 
     $("#subject-aside").html(asideRender);
@@ -255,19 +239,10 @@ const asideCardsRender = () => {
         event.preventDefault();
         let subjectId = event.currentTarget.parentElement.dataset.id;
         localStorage.setItem('subjectToOpen',subjectId)
-        
-        // $('#mainScreen').load('test.html')
-        // window.history.pushState({id: subjectId},'','subject.html')
 
         window.location.href = 'subject.html'
     })
-
-    $('#loader').remove()
 }
-
-// window.onpopstate(event =>{
-//     event.state
-// })
 
 //Get current date and time
 const currentDate = new Date(Date.now());
@@ -277,69 +252,6 @@ const formattedTime =
 (currentDate.getHours() > 9 ? currentDate.getHours() : '0'+currentDate.getHours())+":"
 +(currentDate.getMinutes() > 9 ? currentDate.getMinutes() : '0'+currentDate.getMinutes())+":"
 +(currentDate.getSeconds() > 9 ? currentDate.getSeconds() : '0'+currentDate.getSeconds());
-
-let appSchedule;
-$("#scheduleModal").on('shown.bs.modal', ()=>appSchedule.updateSize())
-
-
-/**
- * Show a weekly Calendar on a div with Id calendar
- */
-document.addEventListener('DOMContentLoaded', function() {
-    
-    appScheduleRender();
-
-    $('#sidebarApps a').on('click',event=>{
-        event.preventDefault()
-    })
-
-    if(isIndexHTML){
-        indexCalendarRender();
-    }
-
-});
-
-//LOGOUT
-
-$('#logout').on('click',event=>{
-    event.preventDefault();
-    auth.signOut()
-    .then(()=>{
-        window.location.href = 'auth-login.html'
-    })
-    .catch(error=>console.log(error.code,error.message))
-})
-
-const indexCalendarRender = () => {
-    let calendarEl = document.getElementById('calendar')
-    let calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'timeGridWeek',
-        themeSystem: 'bootstrap',
-        locale: language,
-        allDaySlot: false,
-        headerToolbar: {
-            left: 'prev',
-            center: 'title',
-            right: 'next',
-        },
-        scrollTime: formattedTime,
-        selectable:true,
-        nowIndicator:true,
-        events: [
-            {
-                title:  'My Event',
-                startTime:  '14:30:00',
-                endTime: '18:30:00',
-                allDay: false,
-                url: 'http://zoom.us',
-                daysOfWeek: [ '3' ],
-                startRecur: '2021-05-01',
-                endRecur: '2021-05-21',
-            }
-        ]
-    });
-    calendar.render();
-}
 
 const appScheduleRender = () => {
     let scheduleEl = document.getElementById('scheduleModalRender')
@@ -378,5 +290,4 @@ const appScheduleRender = () => {
     appSchedule.render();
 }
 
-
-//TODO, LISTA DE TAREAS APP, SIDEBAR DESPLEGABLE,QUERY DE FIREBASE SEGUN FECHA DE CAMBIOS0
+//TODO, LISTA DE TAREAS APP, SIDEBAR DESPLEGABLE, SUBJECT.JS
