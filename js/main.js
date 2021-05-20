@@ -14,17 +14,22 @@ let appSchedule;
 let currentUser;
 
 //Listen for auth changes
-auth.onAuthStateChanged(user =>{
-    if(user){
-        setUserUI(user);
-        getSubjectsFromFirebase();
-        if(isProfileHTML){userDataRender(user.uid)}
-    } else{
-        localStorage.clear()
-        sessionStorage.clear()
-        window.location.href = 'auth-login.html'
-    }
-})
+function initApp (){
+    auth.onAuthStateChanged(async user =>{
+        if(user){
+            await getSubjectsFromFirebase();
+            setUserUI(user);
+            if(isProfileHTML){userDataRender(user.uid)}
+            if(isSubjectHTML){setSubjectData(subjectId)}
+        } else{
+            localStorage.clear()
+            sessionStorage.clear()
+            window.location.href = 'auth-login.html'
+        }
+    })
+}
+
+initApp()
 
 /**
  * Get some info from user to show in DOM
@@ -162,9 +167,9 @@ const subjectConverter = {
 
 let subjectsList = [];
 
-const getSubjectsFromFirebase = () => {
+const getSubjectsFromFirebase = async () => {
     if (!localSubjectList){
-        db.collection("courses") //TODO Cambiar coleccion y condicion, querys y lecturas
+        await db.collection("subjects") //TODO Cambiar coleccion y condicion, querys y lecturas
         .withConverter(subjectConverter)
         .get().then((snapshot) => {
             snapshot.docs.forEach((doc) => {
@@ -211,11 +216,11 @@ const asideCardsRender = () => {
         asideRender = asideRender + `
         <li class="accordion-item sidebar-item">
             <div class="accordion-header">
-                <button id="flush-button-${subject.code}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${subject.code}" aria-expanded="false" aria-controls="flush-collapse${subject.code}">
+                <button id="flush-button-${subject.code}" class="accordion-button collapsed" type="button" >
                 ${subject.level +" "+subject.code}
                 </button>
             </div>
-            <div id="flush-collapse${subject.code}" data-id="${subject.code}" class="accordion-collapse collapse" aria-labelledby="flush-heading${subject.code}" data-bs-parent="#subject-aside">
+            <div id="flush-collapse-${subject.code}" data-id="${subject.code}" class="accordion-collapse collapse">
                 <a href="subject.html">
                     <i class="fas fa-user-friends"></i>
                     <span>ALUMNOS</span>
@@ -241,6 +246,13 @@ const asideCardsRender = () => {
         localStorage.setItem('subjectToOpen',subjectId)
 
         window.location.href = 'subject.html'
+    })
+
+    $('#subject-aside button').each(function (){
+        $(this).on('click',function(){
+            $(this).parent().next().slideToggle(200)
+            $(this).toggleClass('collapsed')
+        })
     })
 }
 

@@ -12409,6 +12409,9 @@ body {
 .modal-body {
   min-height: 70vh; }
 
+#modalPassword {
+  min-height: auto; }
+
 .border-left-primary {
   border-left: 0.25rem solid #0d6efd !important; }
 

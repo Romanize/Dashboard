@@ -19,7 +19,7 @@
 
     <!-- Linking Js, Bootstrap missing -->
     <script src="js/main.js" defer></script>
-    <script src="js/profile.js" defer></script>
+    <script src="js/subject.js" defer></script>
 
 </head>
 
@@ -116,7 +116,7 @@
                                     <!-- Search Minimized -->
                                     <li class="nav-item dropdown nav-dropdown-toggler d-lg-none">
                                         <a class="nav-link dropdowm-toggle" id="search-dropdown" role="button" data-bs-toggle="dropdown"
-                                            aria-expanded="false" href="#">
+                                            aria-expanded="false">
                                             <i class="fas fa-search fa-1x"></i>
                                         </a>
             
@@ -135,7 +135,7 @@
                                     <!-- Messages -->
                                     <li class="nav-item dropdown nav-dropdown-toggler">
                                         <a class="nav-link dropdowm-toggle" id="messages-dropdown" role="button"
-                                            data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                                            data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="fas fa-envelope fa-fw"></i>
                                         </a>
             
@@ -189,7 +189,7 @@
                                     <!-- Alerts -->
                                     <li class="nav-item dropdown nav-dropdown-toggler">
                                         <a class="nav-link dropdowm-toggle" id="alerts-dropdown" role="button" data-bs-toggle="dropdown"
-                                            aria-expanded="false" href="#">
+                                            aria-expanded="false">
                                             <i class="fas fa-bell fa-fw"></i>
                                         </a>
             
@@ -262,7 +262,7 @@
                                                 </div>
                                                 <span>SETTINGS</span>
                                             </a>
-                                            <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
+                                            <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="/profile.html#log">
                                                 <div>
                                                     <div class="nav-dropdown-icon">
                                                         <i class="fas fa-clipboard-list"></i>
@@ -288,170 +288,18 @@
                 
                 <!-- main content -->
                 <div id="mainScreen">
-                    <div class="container-fluid">
-                        <!-- TITLE -->
-                        <div class="row">
-                            <div class="col-6 align-self-center">
-                                <h3 class="mb-2">Profile Page</h3>
-                            </div>
-                            <button class="btn btn-primary ms-auto me-3 mb-2" style="width:100px"><i class="fas fa-user-edit"></i>  User Log</button>
-                        </div>
-                        <!-- USER DATA -->
-                        <div class="row">
-                            <!-- DATA BRIEF -->
-                            <div class="col-lg-4 col-xlg-3 col-md-5 mb-3">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <main class="mt-4"> <img id="userPhoto" class="rounded-circle" width="150">
-                                            <h4 class="card-title mt-2" id="userDisplayName"></h4>
-                                            <h6 class="card-subtitle" id="userOccupation"></h6>
-                                        </main>
-                                    </div>
-                                    <div>
-                                        <hr> </div>
-                                    <div class="card-body"> <small class="text-muted">Email address </small>
-                                        <h6 id="userEmail" ></h6> <small class="text-muted pt-4 db">Phone</small>
-                                        <h6 id="userPhoneNumber">+54 911 3755-0616</h6> <small class="text-muted pt-4 db">Address</small>
-                                        <h6 id="userAddress">Esmeralda 321, Caba 1007</h6>
-                                        <div class="map-box">
-                                            <iframe id="userMapView" src="" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen=""></iframe>
-                                        </div> 
-                                        <small class="text-muted pt-4 db">Social Profile</small>
-                                        <div>
-                                            <a class="btn btn-secondary" href="#"><i class="fab fa-facebook-f"></i></a>
-                                            <a class="btn btn-secondary" href="#"><i class="fab fa-twitter"></i></a>
-                                            <a class="btn btn-secondary" href="#"><i class="fab fa-youtube"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    
-                            <!-- DATA MAIN -->
-                            <div class="col-lg-8 col-xlg-9 col-md-7">
-                                <main id="userMain">
-                                    <form id="formData">
-                                        <div class="mb-3 form-group">
-                                            <label class="col-md-12">First Name</label>
-                                            <div class="col-md-12">
-                                                <input type="text" placeholder="Insert your First Name" class="form-control" name="firstName">
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 form-group">
-                                            <label class="col-md-12">Last Name</label>
-                                            <div class="col-md-12">
-                                                <input type="text" placeholder="Insert your Last Name" class="form-control" name="lastName">
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 form-group">
-                                            <label class="col-md-12">Occupation</label>
-                                            <div class="col-md-12">
-                                                <input type="text" placeholder="Insert your Occupation" class="form-control" name="occupation">
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 form-group">
-                                            <label class="col-md-12">Phone No</label>
-                                            <div class="col-md-12">
-                                                <input type="text" placeholder="+55 555 555 5555" class="form-control" name="phoneNumber">
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 form-group">
-                                            <label class="col-md-12">Biography</label>
-                                            <div class="col-md-12">
-                                                <textarea rows="5" class="form-control" placeholder="You can comment something about you" name="bio"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-                                            <div class="mb-3 form-group col">
-                                                <label class="col-md-12">Country</label>
-                                                <div class="col-md-12">
-                                                    <input type="text" class="form-control" placeholder="Country" name="country"></input>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 form-group col">
-                                                <label class="col-md-12">State</label>
-                                                <div class="col-md-12">
-                                                    <input type="text" class="form-control" placeholder="State" name="state"></input>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 form-group col">
-                                                <label class="col-md-12">City</label>
-                                                <div class="col-md-12">
-                                                    <input type="text" class="form-control" placeholder="City" name="city"></input>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 form-group col">
-                                                <label class="col-md-12">Street</label>
-                                                <div class="col-md-12">
-                                                    <input type="text" class="form-control" placeholder="Street" name="street"></input>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 form-group col">
-                                                <label class="col-md-12">Number</label>
-                                                <div class="col-md-12">
-                                                    <input type="text" class="form-control" placeholder="Number" name="number"></input>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 form-group col">
-                                                <label class="col-md-12">ZIP</label>
-                                                <div class="col-md-12">
-                                                    <input type="text" class="form-control" placeholder="ZIP Code" name="zipCode"></input>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <div class="mb-3">
-                                        <div class="col-sm-12">
-                                            <button id="updateButton" class="btn btn-success">Update Profile</button>
-                                            <button data-bs-toggle="modal" data-bs-target="#passwordModal" class="btn btn-secondary">Update Password</button>
-                                        </div>
-                                    </div>
-                                </main>
-                            </div>
+                    <!-- Top section -->
+                    <div class="row">
+                        <div class="col-12 px-3" id="subjectData">
                         </div>
                     </div>
 
-                        <!-- Modal Password-->
-                        <div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-md modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header bg-light">
-                                        <h2 class="modal-title" id="scheduleModalLabel">Change your Password</h2>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body" id="modalPassword">
-                                        <form action="POST" id="changePassword">
-                                            <div class="mb-3 form-group col">
-                                                <label class="col-md-12">Current password</label>
-                                                <div class="col-md-12">
-                                                    <input type="text" class="form-control" placeholder="Old Password" name="oldPassword"></input>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 form-group col">
-                                                <label class="col-md-12">New Password</label>
-                                                <div class="col-md-12">
-                                                    <input type="text" class="form-control" placeholder="New Password" name="newPassword"></input>
-                                                </div>
-                                            </div>                                            
-                                            <div class="form-group col">
-                                                <label class="col-md-12">Confirm your password</label>
-                                                <div class="col-md-12">
-                                                    <input type="text" class="form-control" placeholder="Confirm your password" name="confirmPassword"></input>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer bg-light">
-                                        <button class="btn btn-primary" id="updatePassword">Change Password</button>
-                                    </div>
-                                </div>
-                                </div>
-    </div>
+                    <!-- Schedule -->
+                    <div class="row"></div>
                 </div>
             </div>
         </div>
     </div>
-
-    
   
     <!-- Modal Schedule-->
     <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
@@ -487,26 +335,26 @@
                 </div>
                 <div class="container-fluid flex-grow-1">
                     <div class="row mh-100 messagesContent">
-                        <div class="col-4 p-0" >
+                        <div class="d-flex flex-column col-4 p-0 mh-100" >
                             <form id="messageForm" class="input-group pb-2">
                                 <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </form>
-                            <div id="recentMessages">
-                            <a class="d-flex align-items-center" href="#" data-id="">
-                                <img class="rounded-circle me-2" img
-                                    src="https://eshendetesia.com/images/user-profile.png" alt="User Picture"
-                                    width="35px" height="35px">
-                                <div class="messagePreview flex-grow-1">
-                                    <span class="fw-bold" >Germán Ojeda</span>
-                                    <div class="text-truncate">Hola, soy Germán del grupo de JS de Coderhouse</div>
-                                </div>
-                            </a>
+                            <div class="flex-grow-1 d-flex flex-column" id="recentMessages">
+                                <a class="d-flex align-items-center" href="#" data-id="">
+                                    <img class="rounded-circle me-2" img
+                                        src="https://eshendetesia.com/images/user-profile.png" alt="User Picture"
+                                        width="35px" height="35px">
+                                    <div class="messagePreview flex-grow-1">
+                                        <span class="fw-bold" >Germán Ojeda</span>
+                                        <div class="text-truncate">Hola, soy Germán del grupo de JS de Coderhouse</div>
+                                    </div>
+                                </a>
                             </div>
                         </div>
-                        <div class="d-flex flex-column col-8 px-2" id="chatBox">
+                        <div class="d-flex flex-column col-8 px-2 mh-100" id="chatBox">
                             <div class="d-flex chatBoxHeader align-items-center">
                                 <img class="rounded-circle me-2" img
                                     src="https://eshendetesia.com/images/user-profile.png" alt="User Picture"

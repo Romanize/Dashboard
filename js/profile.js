@@ -23,7 +23,7 @@ class User {
     }
 
     get getFullAddress() {
-        return `${this.address.street} ${this.address.number}, ${this.address.city} ${this.address.zipCode || ''}. ${this.address.country}`
+        return `${this.address.street} ${this.address.number}, ${this.address.city} ${this.address.zipCode || ''}. ${this.address.state}, ${this.address.country}`
     }
 }
 
@@ -94,4 +94,35 @@ $('#updateButton').on('click',async ()=>{
     }).then(()=>location.reload())
 })
 
-//TODO -- Address update fields, password change. (email via support??)
+$('#updatePassword').on('click',async ()=>{
+    
+    let oldPassword = changePassword['oldPassword'].value;
+    let newPassword = changePassword['newPassword'].value;
+    let confirmPassword = changePassword['confirmPassword'].value;
+
+    if(newPassword !== confirmPassword ){
+        changePassword['newPassword'].value = '';
+        changePassword['confirmPassword'].value = ''
+
+        return console.error('Your passwords are not the same')
+    }
+    if( newPassword.length < 6){
+        changePassword['newPassword'].value = '';
+        changePassword['confirmPassword'].value = ''
+
+        return console.error('Your passwords must be 6 characters or more')
+    }
+
+    let credentials = firebase.auth.EmailAuthProvider.credential(
+        auth.currentUser.email,
+        oldPassword
+    )
+
+    auth.currentUser.reauthenticateWithCredential(credentials)
+    .then(auth.currentUser.updatePassword(newPassword))
+    .then(console.log)
+    .catch(console.error)
+
+})
+
+//Social media?? User Log??
