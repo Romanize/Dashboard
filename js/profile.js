@@ -125,4 +125,75 @@ $('#updatePassword').on('click',async ()=>{
 
 })
 
-//Social media?? User Log??
+$('#mercadoPago').on('click',async ()=>{
+    const response = await fetch(
+        'https://api.mercadopago.com/checkout/preferences',
+        {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer TEST-5843360768586125-051800-5db87f1c05f4099988de1ab1421ae403-313511774',
+            },
+            body: JSON.stringify({
+                items: [{
+                    "id": "Didactic Zone",
+                    "title": "Mensualidad",
+                    "description": `${userData.displayName+" "+auth.currentUser.uid}, Mensualidad`,
+                    "category_id": "Education",
+                    "quantity": 1,
+                    "currency_id" : "ARS",
+                    "unit_price": 6000
+                }]
+            })
+        }
+    );
+    // console.log(response)
+    const dataJson = await response.json();
+    window.open(dataJson.init_point,"blank")
+    console.log(dataJson)
+})
+
+// curl -X POST \
+//     'https://api.mercadopago.com/v1/payments' \
+//     -H  \ 
+//     -d '{
+//   "additional_info": {
+
+//     "payer": {
+//       "first_name": "Test",
+//       "last_name": "Test",
+//       "phone": {
+//         "area_code": 11,
+//         "number": "987654321"
+//       },
+//       "address": {}
+//     },
+//     "shipments": {
+//       "receiver_address": {
+//         "zip_code": "12312-123",
+//         "state_name": "Rio de Janeiro",
+//         "city_name": "Buzios",
+//         "street_name": "Av das Nacoes Unidas",
+//         "street_number": 3003
+//       }
+//     },
+//     "barcode": {}
+//   },
+//   "description": "Payment for product",
+//   "external_reference": "MP0001",
+//   "installments": 1,
+//   "metadata": {},
+//   "order": {
+//     "type": "mercadolibre"
+//   },
+//   "payer": {
+//     "entity_type": "individual",
+//     "type": "customer",
+//     "identification": {},
+//     "phone": {}
+//   },
+//   "payment_method_id": "visa",
+//   "transaction_amount": 58.8
+// }'
+
+
+//Social media??

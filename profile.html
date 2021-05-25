@@ -116,7 +116,7 @@
                                     <!-- Search Minimized -->
                                     <li class="nav-item dropdown nav-dropdown-toggler d-lg-none">
                                         <a class="nav-link dropdowm-toggle" id="search-dropdown" role="button" data-bs-toggle="dropdown"
-                                            aria-expanded="false" href="#">
+                                            aria-expanded="false">
                                             <i class="fas fa-search fa-1x"></i>
                                         </a>
             
@@ -135,7 +135,7 @@
                                     <!-- Messages -->
                                     <li class="nav-item dropdown nav-dropdown-toggler">
                                         <a class="nav-link dropdowm-toggle" id="messages-dropdown" role="button"
-                                            data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                                            data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="fas fa-envelope fa-fw"></i>
                                         </a>
             
@@ -189,7 +189,7 @@
                                     <!-- Alerts -->
                                     <li class="nav-item dropdown nav-dropdown-toggler">
                                         <a class="nav-link dropdowm-toggle" id="alerts-dropdown" role="button" data-bs-toggle="dropdown"
-                                            aria-expanded="false" href="#">
+                                            aria-expanded="false">
                                             <i class="fas fa-bell fa-fw"></i>
                                         </a>
             
@@ -262,7 +262,7 @@
                                                 </div>
                                                 <span>SETTINGS</span>
                                             </a>
-                                            <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
+                                            <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="/profile.html#log">
                                                 <div>
                                                     <div class="nav-dropdown-icon">
                                                         <i class="fas fa-clipboard-list"></i>
@@ -294,7 +294,7 @@
                             <div class="col-6 align-self-center">
                                 <h3 class="mb-2">Profile Page</h3>
                             </div>
-                            <button class="btn btn-primary ms-auto me-3 mb-2" style="width:100px"><i class="fas fa-user-edit"></i>  User Log</button>
+                            <button class="btn btn-primary ms-auto me-3 mb-2" style="width:150px" id="mercadoPago"><i class="fas fa-wallet"></i>  MercadoPago</button>
                         </div>
                         <!-- USER DATA -->
                         <div class="row">
@@ -316,12 +316,12 @@
                                         <div class="map-box">
                                             <iframe id="userMapView" src="" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen=""></iframe>
                                         </div> 
-                                        <small class="text-muted pt-4 db">Social Profile</small>
+                                        <!-- <small class="text-muted pt-4 db">Social Profile</small>
                                         <div>
                                             <a class="btn btn-secondary" href="#"><i class="fab fa-facebook-f"></i></a>
                                             <a class="btn btn-secondary" href="#"><i class="fab fa-twitter"></i></a>
                                             <a class="btn btn-secondary" href="#"><i class="fab fa-youtube"></i></a>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -450,12 +450,10 @@
             </div>
         </div>
     </div>
-
-    
   
     <!-- Modal Schedule-->
     <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-fullscreen-md-down modal-dialog-centered">
+        <div class="modal-dialog modal-lg modal-fullscreen-lg-down modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-light">
             <h2 class="modal-title" id="scheduleModalLabel">Your Schedule</h2>
@@ -471,14 +469,14 @@
 
     <!-- Modal Messages-->
     <div class="modal fade" id="messagesModal" tabindex="-1" aria-labelledby="messagesModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-fullscreen-md-down modal-dialog-centered">
+        <div class="modal-dialog modal-lg modal-fullscreen-lg-down modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-light">
             <h2 class="modal-title" id="messagesModalLabel">Your Messages</h2>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body d-flex flex-column" id="messagesModalRender">
-                <div class="d-flex justify-content-end mb-3">
+                <div class="d-flex justify-content-start mb-3   ">
                     <div>
                         <button class="btn btn-primary">
                             <i class="fas fa-plus-square"></i>
@@ -487,26 +485,26 @@
                 </div>
                 <div class="container-fluid flex-grow-1">
                     <div class="row mh-100 messagesContent">
-                        <div class="col-4 p-0" >
+                        <div class="d-flex flex-column col-4 p-0 mh-100" >
                             <form id="messageForm" class="input-group pb-2">
                                 <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </form>
-                            <div id="recentMessages">
-                            <a class="d-flex align-items-center" href="#" data-id="">
-                                <img class="rounded-circle me-2" img
-                                    src="https://eshendetesia.com/images/user-profile.png" alt="User Picture"
-                                    width="35px" height="35px">
-                                <div class="messagePreview flex-grow-1">
-                                    <span class="fw-bold" >Germán Ojeda</span>
-                                    <div class="text-truncate">Hola, soy Germán del grupo de JS de Coderhouse</div>
-                                </div>
-                            </a>
+                            <div class="flex-grow-1 d-flex flex-column" id="recentMessages">
+                                <a class="d-flex align-items-center" href="#" data-id="">
+                                    <img class="rounded-circle me-2" img
+                                        src="https://eshendetesia.com/images/user-profile.png" alt="User Picture"
+                                        width="35px" height="35px">
+                                    <div class="messagePreview flex-grow-1">
+                                        <span class="fw-bold" >Germán Ojeda</span>
+                                        <div class="text-truncate">Hola, soy Germán del grupo de JS de Coderhouse</div>
+                                    </div>
+                                </a>
                             </div>
                         </div>
-                        <div class="d-flex flex-column col-8 px-2" id="chatBox">
+                        <div class="d-flex flex-column col-8 px-2 mh-100" id="chatBox">
                             <div class="d-flex chatBoxHeader align-items-center">
                                 <img class="rounded-circle me-2" img
                                     src="https://eshendetesia.com/images/user-profile.png" alt="User Picture"
@@ -540,7 +538,7 @@
 
     <!-- Modal To Do List-->
     <div class="modal fade" id="toDoModal" tabindex="-1" aria-labelledby="toDoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-fullscreen-sm-down modal-dialog-centered">
+        <div class="modal-dialog modal-lg modal-fullscreen-lg-down modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-light">
             <h2 class="modal-title" id="toDoModalLabel">Your List</h2>

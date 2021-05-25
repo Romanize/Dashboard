@@ -12183,7 +12183,7 @@ body {
 
 .sidebar-menu .accordion-button::before {
   text-align: center;
-  width: 40px;
+  width: 2.5rem;
   margin-left: 10px;
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
@@ -12540,3 +12540,58 @@ body {
 #subjectCards > * {
   margin-top: 0;
   margin-bottom: var(--bs-gutter-y); }
+
+#subjectSchedule li div {
+  list-style: none;
+  min-height: 3rem;
+  min-width: 3rem; }
+
+#subjectSchedule li div div:first-child {
+  width: 6rem;
+  position: relative; }
+
+#subjectSchedule h4, #subjectSchedule .h4 {
+  line-height: 3rem;
+  margin: 0 1rem;
+  box-shadow: 2px 2px 2px 2px lightgrey;
+  padding: 0 .5rem;
+  border-radius: 1rem;
+  position: relative;
+  margin-bottom: 1.5rem; }
+
+#subjectSchedule h3, #subjectSchedule .h3 {
+  line-height: 3rem;
+  text-align: center;
+  border-radius: 1rem; }
+
+#subjectSchedule li div div:first-child::before {
+  height: 100%;
+  width: 0;
+  border: .1rem lightgrey solid;
+  background-color: lightgrey;
+  position: absolute;
+  top: .2rem;
+  left: 50%;
+  margin-left: -.2rem;
+  content: '';
+  z-index: -1; }
+
+#subjectSchedule li:last-child div div:first-child::before {
+  border: none; }
+
+#subjectSchedule h4:before, #subjectSchedule .h4:before {
+  height: 0;
+  width: 2rem;
+  border: .1rem lightgrey solid;
+  background-color: lightgrey;
+  position: absolute;
+  top: 1.5rem;
+  margin-top: -.2rem;
+  left: -1.5rem;
+  margin-left: -.2rem;
+  content: '';
+  z-index: -1; }
+
+#subjectSchedule small, #subjectSchedule .small {
+  line-height: 1.5rem;
+  padding: 0 .5rem; }

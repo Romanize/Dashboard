@@ -140,6 +140,12 @@ const setUserUI = (user) =>{
                 return 'primary'
         }
     }
+
+    getDate(date){
+        const splitDate = date.split("/");
+        let formattedDate = new Date(+splitDate[2],splitDate[1]-1,+splitDate[0]);
+        return formattedDate
+    }
 }
 
 // Firestore data converter
@@ -222,21 +228,27 @@ const asideCardsRender = () => {
             </div>
             <div id="flush-collapse-${subject.code}" data-id="${subject.code}" class="accordion-collapse collapse">
                 <a href="subject.html">
-                    <i class="fas fa-user-friends"></i>
-                    <span>ALUMNOS</span>
-                </a>
-                <a href="subject.html">
                     <i class="fas fa-clipboard-list"></i>
                     <span>TEMARIO</span>
-                </a>
-                <a href="subject.html">
-                    <i class="fas fa-book-open"></i>
-                    <span>MATERIALES</span>
                 </a>
             </div>
         </li>
         `;
     })
+
+    // TODO - Possible fields to load on sidebar
+    // <a href="subject.html">
+    //     <i class="fas fa-user-friends"></i>
+    //     <span>ALUMNOS</span>
+    // </a>
+    // <a href="subject.html">
+    //     <i class="fas fa-clipboard-list"></i>
+    //     <span>TEMARIO</span>
+    // </a>
+    // <a href="subject.html">
+    //     <i class="fas fa-book-open"></i>
+    //     <span>MATERIALES</span>
+    // </a>
 
     $("#subject-aside").html(asideRender);
 
@@ -250,6 +262,11 @@ const asideCardsRender = () => {
 
     $('#subject-aside button').each(function (){
         $(this).on('click',function(){
+            let notCollapsedButton = $('#subject-aside button').not('.collapsed')
+            if(this!==notCollapsedButton[0]){
+                notCollapsedButton.addClass('collapsed')
+                .parent().next().slideToggle(200)
+            }
             $(this).parent().next().slideToggle(200)
             $(this).toggleClass('collapsed')
         })
