@@ -22,7 +22,9 @@ auth.onAuthStateChanged(user =>{
 
 if(isRegisterHTML){
     $('#registerForm').on('submit',event => {
-        event.preventDefault();
+        event.preventDefault()
+  
+        registerForm.classList.add('was-validated')
 
         //Get User Info
         const firstName = capitalize(registerForm['first_name'].value);
@@ -61,7 +63,7 @@ if(isRegisterHTML){
                         displayName: `${firstName} ${lastName}`,
                         photoURL: 'https://eshendetesia.com/images/user-profile.png'
                     }).then(()=>{location.href = 'index.html'})
-                }).catch(error=>console.log(error.message))
+                }).catch(error=>alert(error.message))
         }else{
             $('#password').val('');
             $('#password2').val('');
@@ -74,6 +76,8 @@ if(isRegisterHTML){
 if(isLoginHTML){
     $('#loginForm').on('submit',event=>{
         event.preventDefault()
+
+        loginForm.classList.add('was-validated')
 
         //Get User Info
         const email = loginForm['email'].value;
@@ -90,18 +94,23 @@ if(isLoginHTML){
                 firebase.auth().signInWithEmailAndPassword(email, password)
                 .then(()=>{
                     location.href = 'index.html'
+                }).catch(error=>{
+                    alert(error.message);
+                    $('#password').val('');
                 })
             })
-            .catch(error=>{
-                console.log(error.code,error.message);
-                $('#password').val('');
-            })
+        .catch(error=>{
+            alert(error.message);
+            $('#password').val('');
+        })
     })
 }
 
 if(isForgotHTML){
     $('#forgotForm').on('submit',event=>{
         event.preventDefault()
+
+        forgotForm.classList.add('was-validated')
 
         //Get User Info
         const email = forgotForm['email'].value;
@@ -110,9 +119,9 @@ if(isForgotHTML){
             alert(`Se ha enviado un email a ${email}`)
             $('#email').val('')
           }).catch(error =>{
-            console.log(error.code, error.message)
+            alert(error.message)
           });
     })
 }
 
-//TODO Terms and Coditions Modal, Country API, Validaciones de registro (campos number??)
+//TODO Terms and Coditions Modal

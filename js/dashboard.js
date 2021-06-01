@@ -59,7 +59,7 @@ const indexCalendarRender = () => {
                 url: 'http://zoom.us',
                 daysOfWeek: [ '3' ],
                 startRecur: '2021-05-01',
-                endRecur: '2021-05-21',
+                endRecur: '2021-06-21',
             }
         ]
     });

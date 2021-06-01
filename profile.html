@@ -12,6 +12,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
 
     <!-- Linking CSS, Bootstrap, Font Awesome / FullCalendar -->
     <link rel="stylesheet" href="css/main.css">
@@ -29,12 +30,15 @@
         <div class="row">
 
             <!-- Sidebar -->
-            <aside class="bg-light col sidebar vh-100 d-none d-xl-inline">
+            <aside class="bg-light col sidebar vh-100 d-inline">
                             
                 <!-- Brand -->
                 <div class="sidebar-brand">
-                    <a href="index.html">
+                    <a href="index.html" class="d-none d-lg-inline">
                         DIDACTIC ZONE
+                    </a>
+                    <a href="index.html" class="d-lg-none">
+                        Dz
                     </a>
                 </div>
 
@@ -51,7 +55,7 @@
                     </div>
                     <li class="sidebar-header" id="sidebarApps">APPS</li>
                     <li class="accordion-item sidebar-item">
-                        <a href="#" id="messages" data-bs-toggle="modal" data-bs-target="#messagesModal">
+                        <a href="#messagesModal" id="messages" data-bs-toggle="modal">
                             <i class="fas fa-envelope"></i>
                             <span>MESSAGES</span>
                         </a>
@@ -62,21 +66,9 @@
                             <span>SCHEDULE</span>
                         </a>
                     </li>
-                    <li class="accordion-item sidebar-item">
-                        <a href="#" id="toDoList" data-bs-toggle="modal" data-bs-target="#toDoModal">
-                            <i class="fas fa-list"></i>
-                            <span>TO DO LIST</span>
-                        </a>
-                    </li>
                     <li class="sidebar-header">SETTINGS</li>
                     <li class="accordion-item sidebar-item">
-                        <a href="">
-                            <i class="fas fa-cogs"></i>
-                            <span>SETTINGS</span>
-                        </a>
-                    </li>
-                    <li class="accordion-item sidebar-item">
-                        <a href="" id="testing">
+                        <a href="#" id="darkMode">
                             <i class="fas fa-moon"></i>
                             <span>DARK MODE</span>
                         </a>
@@ -89,24 +81,17 @@
                 <!-- Navbar -->
                 <div class="row sticky-top">
                     <nav class="navbar navbar-expand navbar-light bg-light shadow mb-3 px-3 w-100">
-
-                            <!-- TODO Sidebar Toggle (Topbar) -->
-                            <ul class="navbar-nav">
-                                <li class="nav-item dropdown nav-dropdown-toggler d-md-none">
-                                    <a class="nav-link" id="sidebar-toggler" role="button" data-toggle="sidebar">
-                                        <i class="fa fa-bars"></i>
-                                    </a>
-                                </li>
-                            </ul>
             
                             <!-- Search Form -->
-                            <div class="flex-fill d-flex flex-shrink-1">
+                            <div class="flex-fill d-flex flex-shrink-1 position-relative">
                                 <form id="navForm" class="d-none d-lg-flex input-group navbar-search">
-                                    <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
-                                    <button class="btn btn-primary" type="submit">
+                                    <input class="form-control userSearch" id="userSearchNav" type="search" placeholder="Search..." aria-label="Search">
+                                    <button class="btn btn-primary" type="button">
                                         <i class="fas fa-search fa-sm"></i>
                                     </button>
                                 </form>
+                                <div class="userSearchResult" id="userSearchNavResult" style="top:40px">
+                                </div>
                             </div>
             
                             <!-- Nav icons -->
@@ -122,13 +107,14 @@
             
                                         <!-- Search Dropdown -->
                                         <div class="dropdown-list dropdown-menu dropdown-menu-end
-                                        shadow nav-dropdown p-3 animation--grow-in" aria-labelledby="search-dropdown">
+                                        shadow nav-dropdown p-3 animation--grow-in overflow-visible" aria-labelledby="search-dropdown">
                                             <form class="input-group w-100">
-                                                <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
+                                                <input class="form-control userSearch" id="userSearchMin" type="search" placeholder="Search..." aria-label="Search">
                                                 <button class="btn btn-primary" type="submit">
                                                     <i class="fas fa-search fa-sm"></i>
                                                 </button>
                                             </form>
+                                            <div class="userSearchResult" id="userSearchMinResult" style="top: 60px"></div>
                                         </div>
                                     </li>
             
@@ -141,48 +127,7 @@
             
                                         <!-- Messages Dropdown -->
                                         <div class="dropdown-list dropdown-menu dropdown-menu-end
-                                        shadow nav-dropdown animation--grow-in" aria-labelledby="messages-dropdown">
-                                            <h6 class="dropdown-header nav-dropdown-header">
-                                                Messages Center
-                                            </h6>
-                                            <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
-                                                <div class=" nav-dropdown-user">
-                                                    <img class="rounded-circle" img
-                                                        src="https://eshendetesia.com/images/user-profile.png" alt="User Picture"
-                                                        width="35px" height="35px">
-                                                    <span class="nav-dropdown-status"></span>
-                                                </div>
-                                                <div class="nav-dropdown-message">
-                                                    <div class="text-truncate ">Hola, soy Germán del grupo de JS de Coderhouse</div>
-                                                    <div class="small">Germán Ojeda - 5h</div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
-                                                <div class=" nav-dropdown-user mr-3">
-                                                    <img class="rounded-circle" img
-                                                        src="https://eshendetesia.com/images/user-profile.png" alt="User Picture"
-                                                        width="35px" height="35px">
-                                                    <span class="nav-dropdown-status bg-warning"></span>
-                                                </div>
-                                                <div class="nav-dropdown-message">
-                                                    <div class="fw-bold text-truncate ">Trabajar con Js se hace un poco sencillo con la
-                                                        documentación adecuada</div>
-                                                    <div class="small">Leandro Lestani - 2d</div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
-                                                <div class=" nav-dropdown-user mr-3">
-                                                    <img class="rounded-circle" img
-                                                        src="https://eshendetesia.com/images/user-profile.png" alt="User Picture"
-                                                        width="35px" height="35px">
-                                                    <span class="nav-dropdown-status bg-success"></span>
-                                                </div>
-                                                <div class="nav-dropdown-message">
-                                                    <div class="text-truncate ">Mucho éxito en tus labores del día de hoy</div>
-                                                    <div class="small">Adriana - 14d</div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item text-center small" href="#">Read more Messages</a>
+                                        shadow nav-dropdown animation--grow-in" id="navMessages" aria-labelledby="messages-dropdown">
                                         </div>
                                     </li>
             
@@ -199,7 +144,10 @@
                                             <h6 class="dropdown-header nav-dropdown-header">
                                                 Alerts Center
                                             </h6>
-                                            <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
+                                            <div class="d-flex justify-content-center align-items-center nav-dropdown-item" style="height: 200px;">
+                                                Coming soon...
+                                            </div>
+                                            <!-- <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
                                                 <div>
                                                     <div class="nav-dropdown-icon bg-primary text-white">
                                                         <i class="fas fa-file-alt"></i>
@@ -231,7 +179,7 @@
                                                     <div class="small">2 de Diciembre del 2020</div>
                                                     We have found activities without feedback!
                                                 </div>
-                                            </a>
+                                            </a> -->
                                             <a class="dropdown-item text-center small" href="#">Show All Alerts</a>
                                         </div>
                                     </li>
@@ -254,22 +202,6 @@
                                                 </div>
                                                 <span>PROFILE</span>
                                             </a>
-                                            <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="#">
-                                                <div>
-                                                    <div class="nav-dropdown-icon">
-                                                        <i class="fas fa-cogs"></i>
-                                                    </div>
-                                                </div>
-                                                <span>SETTINGS</span>
-                                            </a>
-                                            <!-- <a class="dropdown-item d-flex align-items-center nav-dropdown-item" href="/profile.html#log">
-                                                <div>
-                                                    <div class="nav-dropdown-icon">
-                                                        <i class="fas fa-clipboard-list"></i>
-                                                    </div>
-                                                </div>
-                                                <span>ACTIVITY LOG</span>
-                                            </a> -->
                                             <a id="logout" class="dropdown-item d-flex align-items-center nav-dropdown-item dropdown-logout" href="#">
                                                 <div>
                                                     <div class="nav-dropdown-icon">
@@ -292,7 +224,7 @@
                         <!-- TITLE -->
                         <div class="row">
                             <div class="col-6 align-self-center">
-                                <h3 class="mb-2">Profile Page</h3>
+                                <h2 class="mb-2">Profile Page</h2>
                             </div>
                             <button class="btn btn-primary ms-auto me-3 mb-2" style="width:150px" id="mercadoPago"><i class="fas fa-wallet"></i>  MercadoPago</button>
                         </div>
@@ -300,7 +232,7 @@
                         <div class="row">
                             <!-- DATA BRIEF -->
                             <div class="col-lg-4 col-xlg-3 col-md-5 mb-3">
-                                <div class="card">
+                                <div class="card profile-card">
                                     <div class="card-body text-center">
                                         <main class="mt-4"> <img id="userPhoto" class="rounded-circle" width="150">
                                             <h4 class="card-title mt-2" id="userDisplayName"></h4>
@@ -308,11 +240,15 @@
                                         </main>
                                     </div>
                                     <div>
-                                        <hr> </div>
-                                    <div class="card-body"> <small class="text-muted">Email address </small>
-                                        <h6 id="userEmail" ></h6> <small class="text-muted pt-4 db">Phone</small>
-                                        <h6 id="userPhoneNumber">+54 911 3755-0616</h6> <small class="text-muted pt-4 db">Address</small>
-                                        <h6 id="userAddress">Esmeralda 321, Caba 1007</h6>
+                                        <hr> 
+                                    </div>
+                                    <div class="card-body"> 
+                                        <small class="text-muted">Email address </small>
+                                        <h6 id="userEmail" ></h6> 
+                                        <small class="text-muted pt-4 db">Phone</small>
+                                        <h6 id="userPhoneNumber"></h6> 
+                                        <small class="text-muted pt-4 db">Address</small>
+                                        <h6 id="userAddress"></h6>
                                         <div class="map-box">
                                             <iframe id="userMapView" src="" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen=""></iframe>
                                         </div> 
@@ -476,75 +412,26 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body d-flex flex-column" id="messagesModalRender">
-                <div class="d-flex justify-content-start mb-3   ">
-                    <div>
-                        <button class="btn btn-primary">
-                            <i class="fas fa-plus-square"></i>
-                        </button>
-                    </div>
-                </div>
                 <div class="container-fluid flex-grow-1">
                     <div class="row mh-100 messagesContent">
-                        <div class="d-flex flex-column col-4 p-0 mh-100" >
+                        <div class="d-flex flex-column col-4 p-0 mh-100 position-relative" >
                             <form id="messageForm" class="input-group pb-2">
-                                <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
+                                <input class="form-control userSearch" id="userSearchApp" type="search" placeholder="Search..." aria-label="Search">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </form>
+                            <div class="userSearchResult" id="userSearchAppResult" style="top:40px"></div>
                             <div class="flex-grow-1 d-flex flex-column" id="recentMessages">
-                                <a class="d-flex align-items-center" href="#" data-id="">
-                                    <img class="rounded-circle me-2" img
-                                        src="https://eshendetesia.com/images/user-profile.png" alt="User Picture"
-                                        width="35px" height="35px">
-                                    <div class="messagePreview flex-grow-1">
-                                        <span class="fw-bold" >Germán Ojeda</span>
-                                        <div class="text-truncate">Hola, soy Germán del grupo de JS de Coderhouse</div>
-                                    </div>
-                                </a>
                             </div>
                         </div>
                         <div class="d-flex flex-column col-8 px-2 mh-100" id="chatBox">
-                            <div class="d-flex chatBoxHeader align-items-center">
-                                <img class="rounded-circle me-2" img
-                                    src="https://eshendetesia.com/images/user-profile.png" alt="User Picture"
-                                    width="35px" height="35px">
-                                <div>
-                                    <div class="fw-bold">Germán Ojeda</div>
-                                    <small>Last time, online, etc</small>
-                                </div>
-                            </div>
-                            <div class="flex-grow-1 d-flex flex-column p-2" id="chatContent">
-                                <span class="receive">Probando mensajes recibidos por el usuario del chat</span>
-                                <span class="send">Solo se permiten chats 1 a 1 por los momentos</span>
-                            </div>
-                            <div class="chatBoxFooter">
-                                <form id="sendMessage" class="input-group ">
-                                    <input class="form-control" type="text" name="textMessage" autofocus>
-                                    <button class="btn btn-primary" type="submit">
-                                        <i class="fas fa-paper-plane"></i>
-                                    </button>
-                                </form>
+                            <div class="h-100 d-flex justify-content-center align-items-center">
+                                <i class="fas fa-envelope-open-text fa-10x text-muted"></i>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer bg-light">
-            </div>
-        </div>
-        </div>
-    </div>
-
-    <!-- Modal To Do List-->
-    <div class="modal fade" id="toDoModal" tabindex="-1" aria-labelledby="toDoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-fullscreen-lg-down modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-light">
-            <h2 class="modal-title" id="toDoModalLabel">Your List</h2>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="toDoModalRender">
             </div>
             <div class="modal-footer bg-light">
             </div>
@@ -563,10 +450,16 @@
         </div>
     </div>
 
+    <script>
+        let isDarkModeOn = JSON.parse(localStorage.getItem('isDarkModeON'))
+
+        if(isDarkModeOn){document.getElementById('loader').classList.toggle('bg-dark')}
+    </script>
+
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-app.js"></script>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
+    <!-- Add SDKs for Firebase products that you want to use
         https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-firestore.js"></script>

@@ -12125,7 +12125,7 @@ body {
   align-items: center; }
 
 .sidebar {
-  max-width: 250px;
+  max-width: 60px;
   padding: 0;
   position: sticky;
   top: 0;
@@ -12168,6 +12168,12 @@ body {
   margin-left: 10px;
   text-align: center; }
 
+.sidebar-item span {
+  display: none; }
+
+.sidebar-header {
+  display: none; }
+
 .sidebar-item a {
   color: gray;
   text-decoration: none;
@@ -12185,9 +12191,9 @@ body {
   text-align: center;
   width: 2.5rem;
   margin-left: 10px;
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  content: "\f02d"; }
+  content: attr(data-id);
+  font-family: inherit;
+  font-weight: 700; }
 
 .sidebar-menu .accordion-button::after {
   margin-right: 10px; }
@@ -12199,6 +12205,31 @@ body {
 .accordion-collapse a {
   padding-left: 20px;
   line-height: 2.5rem; }
+
+@media (min-width: 992px) {
+  .sidebar {
+    width: auto;
+    max-width: 250px; }
+  .sidebar-item span {
+    display: inline; }
+  .sidebar-header {
+    display: inline; }
+  .sidebar-menu .accordion-button::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f02d"; } }
+
+@media (max-width: 991px) {
+  .accordion-button::after {
+    content: none; }
+  .sidebar .fas, .accordion-button::before {
+    font-size: 1.3rem;
+    line-height: 4rem; }
+  .accordion-collapse .fas {
+    font-size: 1.2rem;
+    margin-left: -10px; }
+  .sidebar-brand a {
+    font-size: 1.8rem; } }
 
 #loader {
   height: 100vh;
@@ -12297,8 +12328,6 @@ body {
   white-space: normal;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  border-left: 1px solid #e3e6f0;
-  border-right: 1px solid #e3e6f0;
   border-bottom: 1px solid #e3e6f0;
   line-height: 1.3rem;
   width: 100%; }
@@ -12518,6 +12547,34 @@ body {
   100% {
     transform: scale(1); } }
 
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px; }
+
+::-webkit-scrollbar-thumb {
+  background: #e3e3e3;
+  border-radius: 7px; }
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0D6EFD; }
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: inset 15px 10px 12px #f0f0f0; }
+
+.userSearchResult {
+  position: absolute;
+  background-color: white;
+  border-radius: .5rem;
+  box-shadow: 1px 1px 2px 2px lightgrey;
+  display: none;
+  max-height: 9rem;
+  overflow-y: auto; }
+
+.searchLink {
+  line-height: 3rem; }
+
 .auth-brand {
   margin: 20px 0;
   margin-bottom: 40px;
@@ -12595,3 +12652,48 @@ body {
 #subjectSchedule small, #subjectSchedule .small {
   line-height: 1.5rem;
   padding: 0 .5rem; }
+
+* {
+  transition: background-color .5s ease; }
+
+.dark .sidebar-brand a {
+  color: whitesmoke; }
+
+.dark .contact-card {
+  background-color: lightgrey; }
+
+.dark .accordion-collapse a,
+.dark h2,
+.dark .h2 {
+  color: white; }
+
+.dark .sidebar-menu .accordion-button,
+.sidebar-menu .accordion-item,
+.dark .sidebar-item a {
+  color: lightgrey; }
+
+.dark .sidebar-menu .accordion-button:hover, .sidebar-menu .accordion-item,
+.dark .sidebar-item a:hover {
+  color: black; }
+
+.dark .subject-card {
+  color: lightgrey; }
+
+.dark {
+  background-color: gray; }
+
+.darkey, .darkey a {
+  background-color: gray;
+  color: white; }
+
+.darkey a:hover, .dark .chatBoxHeader {
+  color: black; }
+
+.dark .accordion-collapse a {
+  background-color: gray; }
+
+.dark h4, .dark .h4, .dark h6, .dark .h6, .dark hr, .dark label {
+  color: whitesmoke !important; }
+
+.dark .accordion-collapse a:hover {
+  background-color: lightgrey; }

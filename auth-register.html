@@ -11,6 +11,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
 
     <!-- Linking CSS, Bootstrap included -->
     <link rel="stylesheet" href="css/main.css">
@@ -29,14 +30,14 @@
             <div class="row">
               <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
                 <div class="auth-brand">
-                    <img src="https://www.stickers-factory.com/media/catalog/product/cache/1/image/1000x/040ec09b1e35df139433887a97daa66f/1/2/12019_00.png" alt="logo" width="100" class="shadow rounded-circle">
+                    <img src="images/logo.png" alt="logo" width="100" class="shadow rounded-circle">
                 </div>
     
                 <div class="card border-top-warning">
                   <div class="card-header auth-header"><h4>Register</h4></div>
     
                   <div class="card-body">
-                    <form method="POST" id="registerForm">
+                    <form method="POST" id="registerForm" class="needs-validation" novalidate>
                       <div class="row mb-3">
                         <div class="form-group col-6">
                           <label for="first_name">First Name</label>
@@ -86,12 +87,11 @@
                       <div class="row mb-3">
                         <div class="form-group col-4">
                           <label>Country</label>
-                          <!-- API DE PAISES -->
                           <select class="form-control selectric" name="country">
                             <option>Argentina</option>
                             <option>Peru</option>
                             <option>Colombia</option>
-                            <option>Panama</option>
+                            <option>Venezuela</option>
                             <option>Chile</option>
                           </select>
                         </div>
@@ -118,13 +118,14 @@
                         </div>
                         <div class="form-group col-4">
                           <label>Postal ZIP Code</label>
-                          <input type="text" class="form-control" name="zipCode">
+                          <input type="number" class="form-control" name="zipCode">
                         </div>
                       </div>
                       <div class="form-group mb-3">
                         <div class="custom-control custom-checkbox">
-                          <input type="checkbox" name="agree" class="custom-control-input" id="agree">
-                          <label class="custom-control-label" for="agree">I agree with the <a href="#" class="text-primary fw-bold">terms and conditions</a></label>
+                          <input type="checkbox" name="agree" class="form-check-input custom-control-input" id="agree" required>
+                          <label class="custom-control-label" for="agree">I agree with the <a href="#termsModal" data-bs-toggle="modal" class="text-primary fw-bold">terms and conditions</a></label>
+                          <div class="invalid-feedback">You need to accept before register</div>
                         </div>
                       </div>
     
@@ -145,10 +146,26 @@
         </section>
       </div>
 
+      <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-fullscreen-lg-down modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+            <h2 class="modal-title" id="termsModalLabel">Your Schedule</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque, exercitationem obcaecati. Numquam nihil, quidem dolor illum nobis ab. Similique reiciendis sed quaerat alias eius qui excepturi! Eum delectus modi illum sed non deserunt minima quaerat quibusdam, reprehenderit voluptas, aspernatur veritatis, voluptatibus laboriosam omnis? Dolore qui quam, ipsum rerum ipsa labore doloribus soluta dolorem tempore iure? Quod eum et eligendi, nesciunt sed totam dolore vero distinctio beatae hic cumque perferendis. Sequi amet ea quaerat nulla maiores? Optio nihil tenetur, quod dolore accusamus porro ducimus inventore autem molestiae assumenda, maxime possimus vero atque incidunt excepturi sapiente libero quia itaque fuga. Aspernatur, dignissimos.</p>
+            </div>
+            <div class="modal-footer bg-light">
+            </div>
+        </div>
+        </div>
+    </div>
+
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-app.js"></script>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
+    <!-- Add SDKs for Firebase products that you want to use
         https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-auth.js"></script>

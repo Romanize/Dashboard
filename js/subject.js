@@ -1,10 +1,13 @@
 let subjectId = localStorage.getItem('subjectToOpen')
 
+/**
+ * Get subject data and load date data
+ * Needs schedule on database before showing class name
+ * @param {string} subjectId Unic code from subject
+ */
 let setSubjectData=async (subjectId)=>{
-    $('#subjectId').html(subjectId)
 
     let subjectIndex = ()=>{
-        let i;
         for(i=0;i<subjectsList.length;i++){
             if(subjectsList[i].code == subjectId) {
                 return i
@@ -13,7 +16,6 @@ let setSubjectData=async (subjectId)=>{
     }
 
     let selectedSubject = subjectsList[subjectIndex()]
-    console.log(selectedSubject)
 
     $("#subjectData").addClass(`border-left-${selectedSubject.statusColor}`)
     
