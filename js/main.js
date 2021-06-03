@@ -20,6 +20,7 @@ function initApp (){
     auth.onAuthStateChanged(async user =>{
         if(user){
             myUserID = auth.currentUser.uid;
+            messagesNotifications()
             await getSubjectsFromFirebase();
             setUserUI(user);
             await getNetwork();
@@ -455,6 +456,23 @@ const appScheduleRender = () => {
             if(chats.length>0){
                 let docChangedID= querySnapshot.docChanges()[0].doc.id           
                 chatMessagesRender(docChangedID)
+                querySnapshot.docChanges().forEach(change => {
+
+                    if (change.type === "modified"){
+                        let lastMessageIndex = change.doc.data().messages.length-1
+                        let recentMessage = change.doc.data().messages[lastMessageIndex]
+                        if(recentMessage.user !== myUserID){
+                            let userTexting = findUserData(recentMessage.user).data().displayName;
+                            let notification = new Notification(userTexting,{
+                                body: recentMessage.message,
+                                icon: findUserData(recentMessage.user).data().photoURL
+                            })
+                            setTimeout(()=>{
+                                notification.close()
+                            },3000)
+                        }
+                    }
+                })
             }
         }
     })
@@ -691,4 +709,25 @@ function getCalendarEvents(){
 
 function findUserData (uid){
     return network.find(user => user.id == uid)
+}
+
+
+function messagesNotifications(){
+    let notification;
+    let localNotification = localStorage.getItem("notification")
+    if (!("Notification" in window)){
+        if(localNotification !== "unavailable"){
+            alert("This browser does not support desktop notification");
+            localStorage.setItem("notification","unavailable")
+        }
+    } else if (Notification.permission === "default") {
+
+        Notification.requestPermission(function (permission) {
+
+            if (permission === "granted") {
+                notification = new Notification(`Hi there ${auth.currentUser.displayName}! Thank you for activating notifications!`);
+            }
+
+        })
+    }
 }
