@@ -716,10 +716,12 @@ function messagesNotifications(){
     let notification;
     let localNotification = localStorage.getItem("notification")
     if (!("Notification" in window)){
+
         if(localNotification !== "unavailable"){
             alert("This browser does not support desktop notification");
             localStorage.setItem("notification","unavailable")
         }
+        
     } else if (Notification.permission === "default") {
 
         Notification.requestPermission(function (permission) {
