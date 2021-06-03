@@ -24,9 +24,9 @@ function initApp (){
             setUserUI(user);
             await getNetwork();
             getMessagesFromFirebase();
-            if(isProfileHTML){userDataRender(myUserID)}
-            if(isSubjectHTML){setSubjectData(subjectId)}
-            if(isDarkModeOn){darkModeToggle()}
+            if(isProfileHTML) userDataRender(myUserID)
+            if(isSubjectHTML) setSubjectData(subjectId)
+            if(isDarkModeOn) darkModeToggle()
         } else{
             localStorage.clear()
             sessionStorage.clear()
@@ -303,7 +303,7 @@ const getSubjectsFromFirebase = async () => {
             if (doc.exists) {
                 subjectsList.push(doc.data());
             } else {
-                console.error("The document doesn't exist");
+                alert("The document doesn't exist");
             }
             });
             subjectsList.sort((a,b)=>{ //ordenar por status
@@ -692,9 +692,3 @@ function getCalendarEvents(){
 function findUserData (uid){
     return network.find(user => user.id == uid)
 }
-
-$('.newChat').on('click',()=>{
-    // let otherID = prompt('')
-
-
-})

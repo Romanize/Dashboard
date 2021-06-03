@@ -35,8 +35,8 @@ if(isRegisterHTML){
         const isAgreeChecked = registerForm['agree'].checked;
 
         if(!isAgreeChecked){
-            let termsError = new Error('No aceptó terminos y condiciones')
-            return console.error(termsError)
+            let termsError = new Error('You have to accept terms & conditions')
+            return alert(termsError)
         }
 
         if(password === password2){
@@ -63,6 +63,7 @@ if(isRegisterHTML){
                         displayName: `${firstName} ${lastName}`,
                         photoURL: 'https://eshendetesia.com/images/user-profile.png'
                     }).then(()=>{location.href = 'index.html'})
+                    .catch(error=>alert(error.message))
                 }).catch(error=>alert(error.message))
         }else{
             $('#password').val('');
@@ -123,5 +124,3 @@ if(isForgotHTML){
           });
     })
 }
-
-//TODO Terms and Coditions Modal
