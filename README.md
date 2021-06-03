@@ -6,6 +6,8 @@ LMS Dashboard, Licensed project.
 Didactic Zone is an SMS in construction, that was born as an educative project and looking forward to grow in the next months in being a full SMS based on
 actual necesities on schools in Argentina. Was all made in front end, and will integrate backend in the near future, for covering security gaps and other needs.
 
+In this App, we integrated FullCalendar plugin, Notifications API, Mercadopago API, and delivered a realtime and functional chat application. Layout fully designed with bootstrap.
+
 # Technologies
 As requested for educative purposes, technologies used were:
 Technologies
