@@ -531,13 +531,15 @@ const appScheduleRender = () => {
         let timeSinceLastMessage = (new Date()-mostRecent.timestamp.toDate())/(1000*60)
         
         timeSinceLastMessage = Math.floor(timeSinceLastMessage)+'m'
+        console.log(timeSinceLastMessage)
+        console.log(parseInt(timeSinceLastMessage))
         
-        if (timeSinceLastMessage >= 60){
-            timeSinceLastMessage = Math.floor(timeSinceLastMessage / 60)+'h'
+        if (parseInt(timeSinceLastMessage) >= 60){
+            timeSinceLastMessage = Math.floor(parseInt(timeSinceLastMessage) / 60)+'h'
+            if (parseInt(timeSinceLastMessage) >= 24){
+                timeSinceLastMessage = Math.floor(parseInt(timeSinceLastMessage) / 24)+"d"
+            }
         } 
-        if (timeSinceLastMessage >= 24){
-            timeSinceLastMessage = Math.floor(timeSinceLastMessage / 24)+"d"
-        }
 
         navChats += `                                            
         <a class="dropdown-item d-flex align-items-center nav-dropdown-item messageLink" a href="#messagesModal" data-bs-toggle="modal" data-id="${chat.id}">
