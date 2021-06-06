@@ -35,7 +35,7 @@ const subjectsCardsRender = () => {
     $('#loader').remove()
 }
 
-const indexCalendarRender = () => {
+function indexCalendarRender() {
     let calendarEl = document.getElementById('calendar')
     let calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'timeGridWeek',
