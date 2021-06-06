@@ -50,18 +50,7 @@ const indexCalendarRender = () => {
         scrollTime: formattedTime,
         selectable:true,
         nowIndicator:true,
-        events: [
-            {
-                title:  'My Event',
-                startTime:  '14:30:00',
-                endTime: '18:30:00',
-                allDay: false,
-                url: 'http://zoom.us',
-                daysOfWeek: [ '3' ],
-                startRecur: '2021-05-01',
-                endRecur: '2021-06-21',
-            }
-        ]
+        events: getCalendarEvents()
     });
     calendar.render();
 }
