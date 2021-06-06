@@ -54,5 +54,3 @@ const indexCalendarRender = () => {
     });
     calendar.render();
 }
-
-indexCalendarRender();

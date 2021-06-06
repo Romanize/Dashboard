@@ -25,7 +25,10 @@ function initApp (){
             setUserUI(user);
             await getNetwork();
             getMessagesFromFirebase();
-            if(isProfileHTML) userDataRender(myUserID)
+            if(isProfileHTML) {
+                userDataRender(myUserID),
+                indexCalendarRender();
+            }
             if(isSubjectHTML) setSubjectData(subjectId)
             if(isDarkModeOn) darkModeToggle()
         } else{
